@@ -1,0 +1,110 @@
+.split {
+    display: flex;
+    flex-direction: row;
+    /* min-width: 500px; */
+}
+
+.gutter {
+    background-color: #eee;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+    cursor: col-resize;
+}
+
+.inside_container{
+    height: 90vh;
+    overflow: hidden;
+    /* background-color: bisque; */
+}
+
+.left_container{
+    height: 92vh;
+    /* overflow: scroll;
+    overflow-x: hidden; */
+}
+
+.left_navbar{
+    padding: 0 10px;
+    z-index: 3;
+    background-color: #eee;
+}
+.right_navbar{
+    padding: 0 10px;
+    height: 37px;
+    background-color: #eee;
+}
+
+.problem_statement{
+    padding: 15px;
+    overflow: scroll;
+    /* overflow-x: hidden; */
+    height: 90vh;
+    padding-bottom: 40px;
+    scrollbar-color: #6969dd #e0e0e0;
+    scrollbar-width: thin;
+}
+.problem_statement::-webkit-scrollbar {
+    width: 8px;
+    
+}
+
+.problem_statement::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(181, 173, 173, 0.3);
+}
+
+.problem_statement::-webkit-scrollbar-thumb {
+  background-color: rgb(188, 183, 183);
+  outline: 1px solid rgb(189, 182, 182);
+  border-radius: 10px;
+}
+
+.mid_container{
+    height: 80vh;
+}
+
+.editor_body_container{
+    height: 100%;
+}
+.editor-ide{
+    height: 100%;
+    
+  }
+
+.submit_code_btn{
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+}
+.right_container{
+    height: 60vh;
+}
+
+.input_test_case_area{
+    width: 100%;
+    padding: 10px;
+    text-decoration: none;
+    border: 1px solid grey;
+    border-radius: 5px;
+    outline: none;
+}
+
+.run_code_btn{
+    position: fixed;
+    bottom: 5px;
+    right: 130px;
+}
+
+.show_submission{
+    background-color: rgb(239, 239, 239);
+    margin: 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 400;
+}

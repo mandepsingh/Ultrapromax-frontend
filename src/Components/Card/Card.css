@@ -1,0 +1,73 @@
+.flip_card{
+    width: 100%;
+    height: 107%;
+    margin-top: 0;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.card-front,
+.card-back{
+    /* padding: 10px; */
+    /* box-shadow: 1px 2px 8px rgba(104, 80, 80, 0.45);
+    border-radius: 10px; */
+   
+    position: relative;
+    width: 100%;
+    height: 107%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+   
+    
+}
+.card-front{
+    bottom: 107%;
+    background-image: url(../../Images/Pair_programming.gif);
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.card-back{
+    padding: 50px;
+    transform: rotateY(180deg);
+    background-color: white
+}
+
+/*  flip transiction */
+.flip-exit{
+    transform: rotateY(0deg);
+}
+.flip-exit-active{
+    transform: rotateY(180deg);
+    transition: transform 300ms;
+    transition-timing-function: cubic-bezier(0.57, 0.21, 0.69, 1.25);
+}
+
+.flip-exit-done{
+    transform: rotateY(180deg);
+}
+
+.flip-enter{
+    transform: rotateY(180deg);
+}
+.flip-enter-active{
+    transform: rotateY(0deg);
+    transition: transform 300ms;
+    transition-timing-function: cubic-bezier(0.57, 0.21, 0.69, 1.25);
+}
+
+.flip-enter-done{
+    transform: rotateY(0deg);
+}
+
+.create_contest_btn{
+    position: absolute;
+    bottom: 45%;
+    left: 45%;
+}
+
+#homeImage{
+    height: 100%;
+    position: absolute;
+   
+}

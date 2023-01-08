@@ -1,0 +1,29 @@
+.headline{
+    font-size: 40px;
+    font-weight: bolder;
+}
+.btn{
+    color: 1C6758;
+}
+.btn-google{
+    font-weight: bold;
+    float: right;
+}
+
+.submit{
+    background-color: #1C6758;
+    border-color: #1C6758;
+}
+.submit:hover{
+    background-color: #1C6758;
+    border-color: #1C6758;
+}
+
+.signupimage{
+    position: fixed;
+}
+
+.message{
+    color: red;
+    margin: 10px auto;
+}

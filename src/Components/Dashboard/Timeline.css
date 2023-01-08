@@ -1,0 +1,49 @@
+.progress_timeline{
+    font-weight: 600px;
+}
+.circle{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(206, 203, 198);
+    border-radius: 50%;
+    text-align: center;
+    padding: 1px;
+    font-weight: 500;
+    color: rgb(80, 75, 75);
+}
+.circle2{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(57, 143, 80);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    padding: 1px;
+    font-weight: 500;
+}
+.circle3{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(241, 241, 35);
+    color: rgb(108, 77, 77);
+    border-radius: 50%;
+    text-align: center;
+    padding: 1px;
+    font-weight: 500;
+}
+
+.track{
+    width: 100px;
+    margin: 10px;
+    height: 5px;
+    background-color: rgb(206, 206, 214);
+}
+.track2{
+    width: 100px;
+    margin: 10px;
+    height: 5px;
+    background-color: rgb(57, 143, 80);
+}

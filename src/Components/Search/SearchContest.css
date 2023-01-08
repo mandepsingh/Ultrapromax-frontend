@@ -1,0 +1,21 @@
+.filter_title{
+    font-weight: 500;
+}
+
+.filter_contest{
+    border: 1px solid rgb(208, 206, 206);
+    padding: 5px 10px;
+    border-radius: 40px;
+    background-color: white;
+}
+.search_bar{
+    border: none;
+    outline: none;
+    width: 90%;
+}
+.btn_search_contest{
+    /* border-radius: 40px; */
+    font-weight: 500;
+    margin: 0 10%;
+    width: 80%;
+}

@@ -1,0 +1,120 @@
+.cb_logo{
+    width: 30%;
+    margin-left: 12%;
+}
+.homeImage{
+    width: 100%;
+    margin: auto;
+}
+.home_cover_image{
+    display: flex;
+    text-align: center;
+    padding: 5%;
+}
+.website_name{
+    font-family: Quando;
+    font-size: 54px;
+    margin: 0;
+    position: relative;
+    animation-name: bounce_brand;
+    animation-duration: 1.2s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+}
+.website_brief{
+    font-family: Quando;
+    width: 70%;
+    margin: 0 15%;
+    font-size: 28px;
+}
+
+.row {
+    --bs-gutter-x: 0;
+}
+
+.join_contest_btn{
+    text-decoration: none;
+    color: white;
+}
+
+.join_contest_btn:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.cb_guide_box{
+    margin: 10% 15%;
+    height: 100px;
+   
+}
+.cb_guide{
+    /* border: 2px solid grey; */
+    border-radius: 5px;
+    color: #137447;
+    display: flex;
+    max-height: 100%;
+    min-height: 100%;
+    position: relative;
+    /* border-right: none; */
+}
+
+
+.open_book{
+    position: relative;
+    overflow: hidden;
+    animation-name: open_guide;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+}
+
+.box{
+    margin: auto;
+    font-family: Quando;
+    font-size: 16px;
+    padding: 10px;
+    border-left: 1px solid grey;
+    height: 100%;
+}
+.box1{
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+.box4{
+    padding: 0;
+    height: 100%;
+    /* border-radius: 5px; */
+}
+.guide_btn{
+    background-color: #198754;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+@keyframes bounce_brand {
+    20%, 50%, 80%, to{
+        transform: translateY(0px);
+    }
+    35%{
+        transform: translateY(-30px)
+    }
+    65%{
+        transform: translateY(-15px)
+    }
+    90%{
+        transform: translateY(-5px)
+    }
+}
+
+@keyframes open_guide {
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 100%;
+    }
+}

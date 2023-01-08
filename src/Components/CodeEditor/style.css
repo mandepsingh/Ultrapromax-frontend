@@ -1,0 +1,46 @@
+/* 
+.editor_container{
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(207, 209, 205, 0.872);
+  position: relative;
+}
+
+.problem_statement{
+  padding: 20px;
+}
+
+ .editor-ide{
+  height: 80%;
+  width: 100%;
+  position: absolute;
+  border: 2px solid rgb(227, 223, 224);
+  display: inline-block;
+}
+
+.header{
+  border: 2px solid rgb(192, 185, 185);
+  border-left: none;
+  border-right: none;
+}
+
+.select-language{
+  padding: 3px;
+  border-radius: 2px;
+  border: 1px solid rgb(154, 160, 172);
+}
+
+.right_container{
+  position: absolute;
+  height: 87vh;
+  width: 50%;
+  display: inline-block;
+}
+
+.left_container{
+  height: 87vh;
+}
+
+.left_navbar{
+  background-color: rgb(172, 168, 168);
+} */

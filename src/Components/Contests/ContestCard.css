@@ -1,0 +1,50 @@
+.contest_card{
+    height: 100px;
+    background-color: rgb(209, 229, 229);
+    margin: 15px;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.contest_image{
+    display: inline-block;
+    height: 100px;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.contest_details{
+    display: inline-block;
+}
+
+.contest_name{
+    font-size: larger;
+    margin: 0;
+    color: rgb(40, 40, 39);
+}
+
+.main_card{
+    width: 200px;
+}
+
+.color_band_easy{
+    background-color: yellow;
+    height: 40px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.color_band_medium{
+    background-color: orange;
+    height: 40px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+}
+.color_band_hard{
+    background-color: red;
+    height: 40px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+}

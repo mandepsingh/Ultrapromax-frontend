@@ -1,0 +1,62 @@
+.contest_name_heading{
+    text-align: center;
+}
+.timer{
+    background-color: rgb(239, 246, 245);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    font-size: larger;
+    margin: 20px;
+    padding: 15px;
+}
+.liveboard{
+    padding: 0 10px;
+}
+
+.problems_heading{
+    margin: 20px;
+}
+
+.problem_card{
+    border: 1px solid rgb(179, 176, 176);
+    margin: 20px;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+}
+
+.problem_details{
+    display: grid;
+    width: 65%;
+}
+
+.problem_name{
+    font-size: large;
+    font-weight: bold;
+}
+
+.problem_accuracy{
+    font-size: large;
+    opacity: 0.8;
+}
+
+.ranking_heading{
+    margin: 20px 0;
+}
+
+
+.problem_difficulty_solve{
+    display: grid;
+}
+
+.problem_difficulty{
+    font-size: large;
+    padding-left: 10px;
+    opacity: 0.8;
+}
+
+.problem_solve{
+    margin: 10px;
+}

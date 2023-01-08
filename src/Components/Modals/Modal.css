@@ -1,0 +1,10 @@
+.submit_create_contest{
+    width: 80%;
+    margin: 10px 10%;
+    height: 40px;
+}
+
+.modal-body{
+    font-size: 18px;
+    padding: 30px;
+}

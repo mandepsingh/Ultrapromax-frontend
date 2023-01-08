@@ -1,0 +1,104 @@
+.dashboard_heading{
+    font-family: Quando;
+    text-align: center;
+    font-weight: 500;
+    font-size: 34px;
+    /* margin: 20px; */
+}
+
+.contest_timer{
+    background-color: rgb(239, 246, 245);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: large;
+    margin: 15px auto;
+}
+
+.contest_participants,
+.col1,
+.contest_prizes {
+    padding: 10px;
+    /* background-color: rgb(251, 251, 251); */
+    text-align: center;
+}
+.rule{
+    list-style-type: none;
+    padding: 2px;
+}
+
+.requests{
+    height: 300px;
+    border-radius: 10px;
+    border: 2px solid grey;
+}
+
+.request{
+    margin: 10px;
+    /* background-color: rgb(147, 147, 156); */
+}
+
+.accept_req{
+    border: none;
+    padding: 0;
+    color: green;
+    background-color: none;
+    height: 25px;
+    background-color: rgb(239, 246, 245,0);
+}
+.reject_req{
+    border: none;
+    padding: 0;
+    color: red;
+    background-color: none;
+    height: 25px;
+    background-color: rgb(239, 246, 245,0);
+}
+
+.dashboard_comp{
+    /* width: 12%; */
+    padding: 15px;
+    height: 50px;
+    border: 1px solid white;
+    /* color: white; */
+    font-size: 14px;
+    font-family: Quando;
+    /* background-color: #00A257; */
+    background-color: white;
+}
+
+.search_participants{
+    border: none;
+    outline: none;
+    width: 90%;
+}
+.search_box{
+    border: 1px solid grey;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 5%;
+}
+.active_btn{
+    background-color: #00A257;
+    color: white;
+}
+
+.render_comp{
+    /* border: 1px solid pink; */
+    /* height: 500px; */
+    overflow: scroll;
+    scroll-behavior: smooth;
+    
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
+}
+
+.render_comp::-webkit-scrollbar{
+    display: none;
+}
+
+.permission_btn{
+    width: 100%;
+}
