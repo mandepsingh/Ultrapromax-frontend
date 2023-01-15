@@ -3,6 +3,8 @@ import Navbar from '../Navbar/Navbar'
 import "./LeaderBoard.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../App";
+import ReverseTimer from '../Timer/ReverseTimer';
+import Compiler from '../CodeEditor/Compiler';
 
 
 function LeaderBoard() {
@@ -13,22 +15,29 @@ function LeaderBoard() {
     const [contestdata, setContestData] = useState();
     const [showLeaderboard, setShowLeaderboard] = useState();
     const [participants, setParticipants] = useState();
-    // const [contestStartTime, setContestStartTime] = useState();
-
+    const [showQuestion, setShowQuestion] = useState(false);
+    const [showCompiler, setShowCompiler] = useState(false);
+    const [question, setQuestion] = useState();
+    const [questionNumber, setQuestionNumber] = useState(0);
+    
     var count = 1;
+    var qn = 1;
     const navigate = useNavigate();
+
+    const map1 = new Map();
 
 
     // on click solve problem
-    function solveProblem(questionid){
-        navigate(`/compiler/`+ contestId + `/` + questionid)
-      }
+    function solveProblem(question){
+        // navigate(`/compiler/`+ contestId + `/` + questionid)
+        setShowCompiler(true);
+        setQuestion(question);
+        setQuestionNumber(map1.get(question._id));
+    }
 
     // validate url 
-
     const validateUrl = async() =>{
-        // console.log("VALIDATE")
-            const result = await fetch(`https://ultrapro1.onrender.com/livecontest/contest/` + contestId)
+            const result = await fetch(`https://ultrapro1.onrender.com/contest/contest/` + contestId)
             .then((request => request.json()))
             .then(async(data1) => {
                 setContestData(data1);
@@ -63,9 +72,7 @@ function LeaderBoard() {
 
     // participant list update
     const participantStatus = async() =>{
-        // console.log("participant")
-
-       const resultParticipant = await fetch( `https://ultrapro1.onrender.com/participant_status/contest/` + contestId)
+       const resultParticipant = await fetch( `https://ultrapro1.onrender.com/participant_status/paymentcheck/` + contestId +`/accept`)
         .then((request => request.json()))
         .then((data) => {
             setParticipants(data);
@@ -81,76 +88,47 @@ function LeaderBoard() {
         }, 30000);
       }, []);
 
-    //   contestdata && console.log(contestdata)
-      participants && console.log("Part", participants)
-      
+   
 
   return (
     <>
     <Navbar/>
     {
-        showLeaderboard &&
+        showLeaderboard && !showCompiler && 
         <>
             <h2 className='contest_name_heading' >{contestdata.contestname}</h2>
             <div className='timer'>
-            <p>Time Remaining 1 hr 13 minutes</p>
+                {contestdata && <ReverseTimer time = {contestdata.timestart} setShowQuestion={setShowQuestion} page={"problems"}/>}
             </div>
-            <div className='row'>
-                <div className='col-md-4'>
+            <div className='row justify-content-center'>
+                {
+                    showQuestion && 
+                    <div className='col-md-4'>
                     <h3 className='problems_heading'>All problems</h3>
                     {
-                        contestdata && contestdata.problems.map(record => {
-                            // console.log((record._id))
+                        contestdata && contestdata.problems[0].map(record => {
+                            map1.set(record._id, qn++)
                             return(
                                 <>
-                                <div className='problem_card'>
-                                    <div className='problem_details'>
-                                        <p className='problem_name'>{record[0].name}</p>
+                                <div className='problem_card' >
+                                    <div className='problem_details' key={record._id}>
+                                        <p className='problem_name'>{record.name}</p>
                                         <p className='problem_accuracy'>Accuracy: <b>50%</b></p>
                                     </div>
                                     <div className='problem_difficulty_solve'>
-                                        <p className='problem_difficulty'>Difficulty: Hard</p>
-                                        <button className='btn btn-success problem_solve' onClick={()=>solveProblem(record[0]._id)} >solve</button>
+                                        <p className='problem_difficulty'>Difficulty Level: {record.level}</p>
+                                        <button className='btn btn-success problem_solve' onClick={()=>solveProblem(record)} >solve</button>
                                     </div>
-                                </div>
-                                <div className='problem_card'>
-                                    <div className='problem_details'>
-                                        <p className='problem_name'>{record[1].name}</p>
-                                        <p className='problem_accuracy'>Accuracy: <b>50%</b></p>
-                                    </div>
-                                    <div className='problem_difficulty_solve'>
-                                        <p className='problem_difficulty'>Difficulty: Hard</p>
-                                        <button className='btn btn-success problem_solve' onClick={()=>solveProblem(record[1]._id)} >solve</button>
-                                    </div>
-                                </div>
-                                <div className='problem_card'>
-                                    <div className='problem_details'>
-                                        <p className='problem_name'>{record[2].name}</p>
-                                        <p className='problem_accuracy'>Accuracy: <b>50%</b></p>
-                                    </div>
-                                    <div className='problem_difficulty_solve'>
-                                        <p className='problem_difficulty'>Difficulty: Hard</p>
-                                        <button className='btn btn-success problem_solve' onClick={()=>solveProblem(record[2]._id)} >solve</button>
-                                    </div>
-                                </div>
-                                <div className='problem_card'>
-                                    <div className='problem_details'>
-                                        <p className='problem_name'>{record[3].name}</p>
-                                        <p className='problem_accuracy'>Accuracy: <b>50%</b></p>
-                                    </div>
-                                    <div className='problem_difficulty_solve'>
-                                        <p className='problem_difficulty'>Difficulty: Hard</p>
-                                        <button className='btn btn-success problem_solve' onClick={()=>solveProblem(record[3]._id)} >solve</button>
-                                    </div>
-                                </div>
-                                
+                                </div> 
                                 
                                 </>
                             )
                         })
                     }          
-                </div>
-                <div className='col-md-8 liveboard'>
+                    </div>
+                }
+                
+                <div className='col-md-8 liveboard '>
                     <h4 className='ranking_heading'>Ranking for the contestant</h4>
                     <table className="table table-striped">
                         <thead>
@@ -167,6 +145,7 @@ function LeaderBoard() {
                         <tbody>
                             {
                                 participants && participants.map(record =>{
+                                    console.log(record);
                                     return(
                                         <tr key={record.userid}>
                                             <th scope="row">{count++}</th>
@@ -187,7 +166,18 @@ function LeaderBoard() {
                 </div>
             </div> 
         </>
-        
+    }
+    {
+        showCompiler && 
+        <Compiler
+            setShowCompiler = {setShowCompiler}
+            question = {question}
+            contestid = {contestId}
+            time = {contestdata.timestart}
+            setShowQuestion = {setShowQuestion}
+            questionNumber = {questionNumber}
+            userid = {userid}
+        />
     }
     
     </>

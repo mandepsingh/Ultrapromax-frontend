@@ -31,7 +31,7 @@ function Requests(props) {
   
   return (
     <>
-      <div>
+      <div className="contest_participants">
 
         <h4 className='m-2'>Requests </h4>
         

@@ -4,7 +4,7 @@ import SearchContest from '../Search/SearchContest';
 import Loader from '../Loader/Loader';
 import Pagination from '../Pagination/Pagination';
 
-function LiveContests() {
+function LiveContests(props) {
   
   const [contest_list, setContestlist] = useState();
   const [filteredContest, setFilteredContest] = useState();
@@ -12,17 +12,23 @@ function LiveContests() {
   const [postsPerPage, setPostsPerPage] = useState(2);
 
   const dataFetch = async () => {
+    props.setProgress(50);
     const data = await (
       await fetch(
-        "https://ultrapro1.onrender.com/livecontest/"
+        "https://ultrapro1.onrender.com/livecontest/live"
       )
     ).json();
+    props.setProgress(80);
 
     // set state when the data received
     setContestlist(data);
+    props.setProgress(100);
+    
+
   };
 
   useEffect(() => {
+    props.setProgress(10);
     dataFetch();
   }, []);
 
@@ -50,7 +56,7 @@ function LiveContests() {
                   return(
                     <div className='col-lg-4 col-md-6' key={record._id} >
                       {/* {console.log(record)} */}
-                      <ContestCard contest = {record}/>
+                      <ContestCard contest = {record} show={"show"}/>
                     </div>  
                   )
               }) 
@@ -60,7 +66,7 @@ function LiveContests() {
               filteredContest && filteredContest !== "no data" && filteredContest.map( record => {
                   return(
                     <div className='col-lg-4 col-md-6' key={record._id} >
-                      <ContestCard contest = {record}/>
+                      <ContestCard contest = {record} show={"show"}/>
                     </div>  
                   )
               })

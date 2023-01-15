@@ -1,20 +1,24 @@
 .contest_card{
-    height: 100px;
-    background-color: rgb(209, 229, 229);
-    margin: 15px;
+    background-color: aliceblue;
+    margin: 10px;
+    margin-bottom: 20px;
     border-radius: 5px;
-    padding: 0;
+    box-shadow: 2px 3px 7px #c5e4c5;
+    padding: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(111, 91, 91);
+    font-size: 14px;
+    font-weight: 500;
 }
 
-.contest_image{
-    display: inline-block;
-    height: 100px;
-    padding: 0;
-    border-radius: 5px;
+.contest_card:hover{
+    transform: scale(1.1);
+    transition-duration: 0.4s;
 }
 
-.contest_details{
-    display: inline-block;
+.heading{
+    color: #6a5576;
+    font-size: 15px;
 }
 
 .contest_name{
@@ -23,28 +27,19 @@
     color: rgb(40, 40, 39);
 }
 
-.main_card{
-    width: 200px;
+.card_mid{
+    text-align: center;
 }
 
-.color_band_easy{
-    background-color: yellow;
-    height: 40px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+.contest_card p{
+    margin: 0;
 }
 
-.color_band_medium{
-    background-color: orange;
-    height: 40px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-
-}
-.color_band_hard{
-    background-color: red;
-    height: 40px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-
+.join_btn{
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: rgb(125, 134, 151);
+    color: rgb(255, 255, 255);
+    margin-top: 5px;
 }

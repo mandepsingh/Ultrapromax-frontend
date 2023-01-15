@@ -19,12 +19,12 @@ function SearchContest(props) {
     <>
     <form onSubmit={searchContest}>
         <div className="my-2 row mx-2 mb-4">
-            <div className="col-sm-9 filter_contest d-flex mb-2">
+            <div className="col-sm-10 filter_contest d-flex mb-2">
                 <MdSearch size={25} color={"grey"}/>
                 <input type="text" className="search_bar" placeholder="Search Contest" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
             </div>
-            <div className='col-sm-3'>
-                <button type='submit' className='btn btn-success  btn_search_contest'>Search</button>
+            <div className='col-sm-2'>
+                <button type='submit' className='btn_search_contest'>Search</button>
             </div>
 
         </div>

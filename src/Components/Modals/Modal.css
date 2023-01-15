@@ -8,3 +8,13 @@
     font-size: 18px;
     padding: 30px;
 }
+
+.contest_btn{
+    padding: 10px;
+    border: none;
+    background-color: #6972C5;
+    color: white;
+    border-radius: 10px;
+    font-weight: 400;
+    margin: 30px auto;
+}

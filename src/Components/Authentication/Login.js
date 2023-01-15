@@ -3,10 +3,9 @@ import { useState , useContext} from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from '../Navbar/Navbar'
 import { UserContext } from "../../App"
-import sideImg from '../../Images/logo.png'
 import './Login.css';
 
-function SignIn() {
+function Login() {
 
   const {state, dispatch} = useContext(UserContext)
 
@@ -17,6 +16,7 @@ function SignIn() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
     let data = { email, password };
     try {
@@ -55,8 +55,11 @@ function SignIn() {
       console.log(err);
     }
   }
-  
+  // console.log(progress);
+ 
+
   return (
+
     <>
     <Navbar></Navbar>
       <div className="container">
@@ -107,8 +110,9 @@ function SignIn() {
           </div>
         </div>
       </div>
+      
     </>
   )
 }
 
-export default SignIn
+export default Login

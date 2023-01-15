@@ -104,7 +104,7 @@ function Dashboard() {
     const dataFetch = async () => {
         const result = await (
           await fetch(
-            `https://ultrapro1.onrender.com/livecontest/contest/` + contestId
+            `https://ultrapro1.onrender.com/contest/contest/` + contestId
           )
         ).json();
     
@@ -126,6 +126,7 @@ function Dashboard() {
     
         // set state when the data received
         setRequestData(res);
+        // console.log("res",res)
       };
 
       
@@ -137,7 +138,7 @@ function Dashboard() {
             `https://ultrapro1.onrender.com/participant_status/contest/` + contestId
           )
         ).json();
-    
+        
         // set state when the data received
         res.forEach(element => {
           if(element.userid == userid){
@@ -156,24 +157,50 @@ function Dashboard() {
         setParticipants(res);
       };
     
+      // set active class on click
+      function changeClass(classArg){
+          setActiveClass(classArg)
+          setActiveComp(classArg)
+      }
 
+      // return class on buttons
+      function toggleClass(e){
+        if(activeClass === e){
+          return "active_btn";
+        }
+        else return "";
+      }
+
+      function ContestStatus(){
+        const data = {contestid : contestId, conteststatus:"running"};
+        try {
+          const res = fetch(`https://ultrapro1.onrender.com/livecontest/updatestatus`, {
+            method: 'POST',
+            credentials: "same-origin",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            credentials: "include",
+            body: JSON.stringify(data)
+          })
+        }
+        catch (err) {
+          console.log(err);
+        }
+      }
 
       useEffect(() => {
-        // first request on page load
-        const interval1 = setInterval(()=>{
-            
-            dataFetch();
-            setLiveTime(Date.now());
-            requestFetch();
-            fetchparticipant();
-            clearInterval(interval1);
-        }, 1000);
+        dataFetch();
+        setLiveTime(Date.now());
+        requestFetch();
+        fetchparticipant();
 
 
         // second request to refresh data page load
         const interval2 = setInterval(()=>{
           try {
-            const res = fetch(`https://ultrapro1.onrender.com/livecontest/contest/` + contestId, {
+            const res = fetch(`https://ultrapro1.onrender.com/contest/contest/` + contestId, {
               method: 'GET',
               credentials: "same-origin",
               headers: {
@@ -196,24 +223,16 @@ function Dashboard() {
           setLiveTime(Date.now());
           fetchparticipant();
         }, 10000);
+
       }, []);
 
-
-      // set active class on click
-      function changeClass(classArg){
-          setActiveClass(classArg)
-          setActiveComp(classArg)
-      }
-
-      // return class on buttons
-      function toggleClass(e){
-        if(activeClass === e){
-          return "active_btn";
+      useEffect(() => {
+        if(!triggerContest){
+          console.log("object");
+          ContestStatus();
         }
-        else return "";
-      }
-
-
+      },[triggerContest]);
+      
   return (
     <>
     <Navbar></Navbar>
@@ -242,14 +261,10 @@ function Dashboard() {
                 contestdata && new Date(contestdata.timestart) - liveTime < 0 && <button className="btn btn-success permission_btn" disabled = {triggerContest} onClick={askPermision}>Enter Contest</button> 
             } */}
           </div>
-
         </div>
-
         {
           contestdata && <div className="contest_timer"><Timer time={contestdata.timestart} contest = {contestId} setTriggerContest={setTriggerContest}/></div>
         }
-        
-
         <div className='d-flex justify-content-center'>
             <button className={`dashboard_comp ` + toggleClass("participants")}  onClick={()=>changeClass("participants")}>Participants</button>
             {

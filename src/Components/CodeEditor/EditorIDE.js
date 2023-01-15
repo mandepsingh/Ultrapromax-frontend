@@ -1,17 +1,19 @@
-import React , {useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom';
+import React , {useEffect, useState, useContext} from 'react'
 import Editor from "@monaco-editor/react";
 import Moment from "moment";
 
-// const res = await fetch("https://ultrapro1.onrender.com/participant_status/contest/63b30d730d927c575db80a39", {
-
 function EditorIDE(props) {
 
-  const [code, setCode] = useState("// Write Code here...");
-  const params = useParams();
-  const questionid = params.questionid
+  console.log("qn", props.questionNumber);
 
+
+  const [code, setCode] = useState("// Write Code here...");
+  // const params = useParams();
+  const questionid = props.questionid
+  const conteststatus = "running"
+  
   let intervalId;
+  const userid = props.userid;
 
   function onChange(newValue) {
     setCode(newValue);
@@ -21,12 +23,11 @@ function EditorIDE(props) {
 
   const runCode = async()=>{
     console.log("mycode",code)
-    const userid = 'asdfwe2ef3rf4f4323'
     const testcase1 = '23'
     const testcase2 = '12'
     props.setRunCode(true);
 
-    let data = {userid, code, testcase1, testcase2};
+    let data = {userid, code, testcase1, testcase2, conteststatus};
     try {
         const res = await fetch("https://ultrapro1.onrender.com/submit/run", {
         method: 'POST',
@@ -85,19 +86,18 @@ function EditorIDE(props) {
     console.log("mycode",code)
     props.setRunCode(true);
     console.log(true);
-    const problemnumber = "1";
-    const contestid = "63b30d730d927c575db80a39"
-    const userid = "6390420dc516a9a9b7273835"
+    const problemnumber = props.questionNumber.toString();
+    const contestid = props.contestid;
     const testcase1 = "2 3"
     const testcase2 = "1 2"
     const testcase3 = "1 2"
     const expectedres1 = "23" 
     const expectedres2 = "12"
     const expectedres3 = "12"
-    const conteststarttime = Date.now();
+    const conteststarttime = props.conteststarttime;
     const language = "cpp"
-
-    let data = { problemnumber, contestid, userid, code, language, testcase1, testcase2, testcase3, expectedres1, expectedres2, expectedres3, conteststarttime};
+   
+    let data = { problemnumber, contestid, userid, code, language, testcase1, testcase2, testcase3, expectedres1, expectedres2, expectedres3, conteststarttime, conteststatus};
     console.log("code data",data);
     try {
       const res = await fetch("https://ultrapro1.onrender.com/submit", {

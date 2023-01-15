@@ -3,9 +3,10 @@ import Navbar from '../Navbar/Navbar'
 import { useNavigate } from "react-router-dom";
 import "./signup.css"
 
-function SignUp() {
-     const navigate = useNavigate();
-
+function SignUp(props) {
+    const navigate = useNavigate();
+    props.setProgress(0);
+	props.setProgress(100);
     const [firstname, setfirstname] = useState("");
     const [lastname, setlastname] = useState("");
     const [email, setEmail] = useState("");

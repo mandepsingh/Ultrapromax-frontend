@@ -39,7 +39,7 @@ function Logout() {
         
   return (
     <> 
-    Logout
+
     </>
   )
 }

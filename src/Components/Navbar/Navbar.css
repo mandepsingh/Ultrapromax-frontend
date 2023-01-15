@@ -1,10 +1,22 @@
 .brand_name{
-    font-size: 20pt;
+    font-size: 18px;
     font-family: Quando;
     font-weight: 500;
 }
 
 .navbar{
+    background-color: #C2C6E4;
     font-family: Quando;
-    font-size: 20px;
+    font-size: 14px;
+}
+
+.navbar_btn{
+    background-color: white;
+    border: none;
+    color: rgb(63, 38, 38);
+    padding: 8px 15px;
+    border-radius: 5px;
+    width: 70px;
+    text-align: center;
+    font-size: 13px;
 }

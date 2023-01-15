@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { UserContext } from "../../App";
+import Logo from "./../../Images/logo.png"
 import './Navbar.css'
 
 function Navbar() {
@@ -11,15 +12,13 @@ function Navbar() {
         return(
           <>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/contests">Contests</NavLink>
-              </li>
-              <li className="nav-item nav-link">|</li>
+                <NavLink className="nav-link mx-2" to="/contests">Contests</NavLink>
+              </li> 
               <li className="nav-item">
-                <NavLink className="nav-link" to="/">{state.name}</NavLink>
+                <NavLink className="nav-link mx-2" to="/">{state.name.charAt(0).toUpperCase() + state.name.slice(1)}</NavLink>
               </li>
-              <li className="nav-item nav-link">|</li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/logout">Logout</NavLink>
+                <NavLink className="nav-link mx-2" to="/logout">Logout</NavLink>
               </li>
           </>
         )
@@ -27,17 +26,26 @@ function Navbar() {
       else{
         return(
           <>
+              {/* <li className="nav-item">
+                <NavLink className="nav-link text-white" to="/contests">Contests</NavLink>
+              </li> */}
               <li className="nav-item">
-                <NavLink className="nav-link" to="/contests">Contests</NavLink>
-              </li>
-              <li className="nav-item nav-link">|</li>
+              <NavLink className="nav-link" to="/contests">Contests</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="#">Top Coders</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="#">Faq</NavLink>
+            </li>
+              
               <li className="nav-item">
-                <NavLink className="nav-link" to="/login">Login</NavLink>
+                {/* <button className='nav-link navbar_btn'>Login</button> */}
+                <NavLink className="nav-link navbar_btn mx-1" to="/login">Login</NavLink>
               </li>
-              <li className="nav-item nav-link">|</li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/register">Register</NavLink>
-              </li>
+              {/* <li className="nav-item">
+                <NavLink className="nav-link navbar_btn mx-1" to="/register">Register</NavLink>
+              </li> */}
           </>
         )
       }
@@ -45,19 +53,19 @@ function Navbar() {
 
   return (
     <>
-    <nav className="navbar navbar-expand-lg bg-light">
-      <div className="container-fluid">
-        <a className="navbar-brand brand_name" href="/">Coding Bucks</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto ">
-              <RenderMenu/>
-            </ul>
+      <nav className="navbar navbar-expand-lg navbar-dark ">
+        <div className="container-fluid container">
+          <a className="navbar-brand brand_name" href="/"><img src={Logo} height={"24px"}/></a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto ">
+                <RenderMenu/>
+              </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>    
     </>
   )
 }

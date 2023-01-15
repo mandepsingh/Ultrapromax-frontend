@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import Login from "./Components/Authentication/Login";
 import SignUp from "./Components/Authentication/SignUp";
 import LeaderBoard from "./Components/Leaderboard/LeaderBoard";
@@ -12,21 +13,30 @@ import ForgotPassword from "./Components/Authentication/ForgotPassword";
 import { createContext, useReducer } from "react";
 import { inititalState, reducer } from "./reducer/UseReducer";
 import Resetpassword from "./Components/Authentication/Resetpassword";
+import LoadingBar from "react-top-loading-bar";
  
 // contextAPI
 export const UserContext = createContext();
 
 const Routing = ()=>{
+  const [progress, setProgress] = useState(0);
+  // console.log(progress);
   return(
     <BrowserRouter>
+      <LoadingBar
+          color='#92a49c'
+          // progress={progress}
+          height={3}
+          progress={progress}
+        />
       <Routes>
-        <Route index element= {<Home/>}/>
-        <Route path="/home" element= {<Home/>}/>
-        <Route path="/login" element= {<Login/>}/>
+        <Route index element= {<Home setProgress={setProgress}/>}/>
+        <Route path="/home" element= {<Home setProgress={setProgress}/>}/>
         <Route path="/Leaderboard" element= {<LeaderBoard/>}/>
         <Route path="/dashboard/:id" element= {<Dashboard/>}/>
-        <Route path="/contests" element= {<Contests/>}/>
-        <Route path="/register" element= {<SignUp/>}/>
+        <Route path="/contests" element= {<Contests setProgress={setProgress}/>}/>
+        <Route path="/login" element= {<Login setProgress={setProgress}/>}/>
+        <Route path="/register" element= {<SignUp setProgress={setProgress}/>}/>
         <Route path="/logout" element= {<Logout/>}/>
         <Route path="/password/forgot" element= {<ForgotPassword/>}/>
         <Route path="/user/password-reset" element= {<Resetpassword/>}/>

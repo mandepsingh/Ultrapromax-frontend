@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../Navbar/Navbar';
-import { useParams } from 'react-router-dom';
 import Editor from './EditorIDE';
 import Split from 'react-split'
-import Home from '../Home/Home';
-import Login from '../Authentication/Login';
-// import './style.css';
 import './Compiler.css'
 import Loader from '../Loader/Loader';
+import ReverseTimer from '../Timer/ReverseTimer';
+
+
 
 function Compiler(props) {
 
-    const params = useParams();
-    const contestId = params.contestid;
-    const questionid = params.questionid;
-    const [questionData, setQuestionData] = useState();
+    const contestId = props.contestid;
+    const question = props.question;
+    const questionid = props.question._id;
     const [showtestcase, setShowtestcase] = useState(true);
     const [compileTime, setCompileTime] = useState();
     const [showleft, setShowLeft] = useState("description");
@@ -32,23 +29,7 @@ function Compiler(props) {
       setShowLeft(arg);
     }
    
-    const fetchQuestionData = async () => {
-      const result = await (
-        await fetch(
-          `https://ultrapro1.onrender.com/problems/` + questionid
-        )
-      ).json();
-  
-      // set state when the data received
-      console.log(result)
-      setQuestionData(result)
-     
-    };
-
-    useEffect(() => {
-      fetchQuestionData();
-    }, []);
-
+    
     useEffect(() => {
       console.log("compile time ", compileTime);
       showResult()
@@ -64,44 +45,41 @@ function Compiler(props) {
   return (
     <>
       <div className='outer_container'>
-        <Navbar></Navbar>
-        
         <div className='inside_container'>
           <Split className="split" sizes={[30,40,30]} minSize={300}>
             <div className='left_container'>
                   <div className="left_navbar">
                     <div className='left_nav_link'>
+                      <button className='btn btn-light' onClick={()=>props.setShowCompiler(false)}>AllProblems</button>
                       <button className='btn btn-light' onClick={()=>showTab("description")}>Description</button>
                       <button className='btn btn-light' onClick={()=>showTab("submissions")}>Submissions</button>
                     </div>
-                   
-                    
-                  </div> 
+                    </div> 
                     {
                       showleft === "description" &&
-                      questionData &&
+                      question &&
                       <div className="problem_statement">
-                        <h4 className="problem_title">{questionData.name}</h4>
-                        Level : {questionData.level}
+                        <h4 className="problem_title">{question.name}</h4>
+                        Level : {question.level}
                         <hr></hr>
                         <div className="Problem-description">
-                          <p> {questionData.text}</p>
+                          <p> {question.text}</p>
                         </div>
                         <p>
                           <b>Sample Input 1 : </b> <br></br>
-                          {questionData.sampleinput}
+                          {question.sampleinput}
                         </p>
                         <p>
                           <b>Output 1 : </b> <br></br>
-                          {questionData.sampleoutput}
+                          {question.sampleoutput}
                         </p>
                         <p>
                           <b>Constraints : </b> <br></br>
-                          {questionData.constraints}
+                          {question.constraints}
                         </p>
                         <p>
                           <b>Example : </b> <br></br>
-                          {questionData.examples}
+                          {question.examples}
                         </p>
                       </div> 
                     }
@@ -112,17 +90,32 @@ function Compiler(props) {
                       </div>
                     }
             </div>
+            
             <div className="mid_container">
-              <div className="right_navbar">
+              <div className="right_navbar d-flex justify-content-between">
                   <select className='select-language' aria-label="Default select example">
                     <option defaultValue="1">C++</option>
                     <option value="2">Java</option>
                     <option value="3">Python</option>
                   </select>
+                  
+                  <div className='compiler_time'>
+                    <ReverseTimer time = {props.time} setShowQuestion={props.setShowQuestion} page={"compiler"}/>
+                  </div>
+                 
               </div> 
+              
               <div className='editor_body_container'>
                 <div className='editor-ide'>
-                  <Editor setCompileTime = {setCompileTime} setRunCode = {setRunCode}></Editor>
+                  <Editor 
+                    setCompileTime = {setCompileTime} 
+                    setRunCode = {setRunCode}
+                    contestid = {contestId}
+                    questionNumber = {props.questionNumber}
+                    questionid = {questionid}
+                    userid = {props.userid}
+                    conteststarttime = {props.time}
+                  />
                 </div>
               </div>
                 

@@ -1,13 +1,16 @@
 .cover_board{
     height: 400px;
-    background: rgb(44,70,70);
-    background: radial-gradient(circle, #397c5d 15%, #182628 100%);
+    /* background: radial-gradient(circle, #397c5d 20%, #182628 130%); */
+    /* background: radial-gradient(circle, rgb(61 129 78) 15%, #0d3a26 150%); */
+    background: linear-gradient(180deg, #C2C6E4 50.04%, rgba(194, 198, 228, 0) 100%)
 }
 
 .cover_brand{
-    font-size: 4.5rem;
-    color: #f5f5f5;
+    font-size: 4rem;
+    color: #ffffff;
     position: relative;
+    /* font-family: 'Monoton', cursive; */
+    font-family: 'Stardos Stencil', cursive;
     top: 50%;
     width: 100%;
     text-align: center;
@@ -20,23 +23,28 @@
 }
 
 .contest_info{
-    /* border: 2px solid greenyellow; */
     position: relative;
     top: -70px;
     border-radius: 8px;
     background-color: white;
-    box-shadow: 2px 3px 10px #58504f;
+    box-shadow: 2px 3px 10px #c6bebe;
     padding: 20px;
 }
 
 .contest_info-buttons{
-    width: 150px;
+    width: 100px;
     padding: 10px;
     border-radius: 8px;
-    margin: 15px;
+    margin: 10px;
     border: none;
     background-color: #f5f5f5;
     color: rgb(85, 95, 104);
-    font-size: large;
+    font-size: 16px;
+    
 }
 
+.active_btn{
+    color: black;
+    background-color: #e9e3e3;
+    font-weight: 400;
+}

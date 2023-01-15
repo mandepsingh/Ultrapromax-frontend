@@ -17,32 +17,6 @@ function Timer(props) {
   const userid = state.userId;
 
   const navigate = useNavigate();
-
-
-  // function enterContest(){
-  //   console.log(contestid, "  == ",userid);
-
-  //   fetch(`https://ultrapro1.onrender.com/contest/entercontest/`+ contestid + `/` + userid,{
-  //         method : 'POST',
-  //         headers:{
-  //             'Accept':'application/json',
-  //             'Content-Type':'application/json'
-  //         }
-  //       }).then((result) => {
-  //         return result.json();
-  //       }).then((data) => {
-  //         console.log("Enter Contest", data)
-  //         if(data.entercontest === 'false'){
-  //           navigate("/home")
-  //         }
-  //         else{
-  //           navigate(`/leaderboard/` + contestid)
-  //         }
-  //       }).catch((err)=>{
-  //             console.log(err);   
-  //       });
-  // }
-  
   
   const newTime = deadline !== undefined ? deadline.replace('0Z', '') : Date.now();
 

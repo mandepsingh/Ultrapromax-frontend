@@ -29,6 +29,10 @@ function Modals() {
             alert("Contest is not Created. Amount must be greater than or equal to 10!");
             return;
         }
+        if(new Date(timestart) - Date.now() < 0){
+            alert("Contest is not Created. Time must be greater than or equal to the Current Time");
+            return;
+        }
         
         let contest_details = {contestname, level, amount, username, userid, timestart};
         console.log(contest_details);
@@ -51,8 +55,8 @@ function Modals() {
                 
                     let data2 = { contestid, userid, username };
                     try {
-                    const res = await fetch("https://ultrapro1.onrender.com/participant_status/create", {
-                        method: 'POST',
+                    const res = await fetch("https://ultrapro1.onrender.com/participant_status/update", {
+                        method: 'PATCH',
                         credentials: "same-origin",
                         headers: {
                         'Accept': 'application/json',
@@ -105,7 +109,7 @@ function Modals() {
   return (
     <>
     {/* <!-- Button trigger modal --> */}
-    <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <button type="button" className="contest_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Create Contest
     </button>
 
@@ -119,12 +123,12 @@ function Modals() {
             </div>
             <div className="modal-body">
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label htmlFor="contest_Name" className="form-label mb-2">Contest Name</label>
+                    <div className="mb-3">
+                        <label htmlFor="contest_Name" className="form-label mb-1">Contest Name</label>
                         <input type="text" className="form-control form-control" id="contest_Name" value={contestname} onChange = {(e)=>{setContestname(e.target.value)}} placeholder="" required/>
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="difficulty_level" className="form-label mb-2">Difficulty Level</label>
+                    <div className="mb-3">
+                        <label htmlFor="difficulty_level" className="form-label mb-1">Difficulty Level</label>
                         <select className="form-select form-select" value={level} onChange = {(e)=>{setLevel(e.target.value)}} >
                             <option defaultValue>Select Dificulty</option>
                             <option value="1">1</option>
@@ -134,13 +138,13 @@ function Modals() {
                             <option value="5">5</option>
                         </select>
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="contest_amount" className="form-label mb-2">Contest Amount</label>
+                    <div className="mb-3">
+                        <label htmlFor="contest_amount" className="form-label mb-1">Contest Amount</label>
                         <input type="number" className="form-control form-control" id="contest_amount" value={amount} onChange = {(e)=>{setAmount(e.target.value)}} placeholder="Minimum amount should be 10"/>
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="time_start" className="form-label mb-2">Time to start</label>
-                        <input type="datetime-local" className="form-control form-control" id="time_start" value={timestart} onChange = {(e)=>{setTime(e.target.value)}} placeholder="Time in minutes"/>
+                    <div className="mb-3">
+                        <label htmlFor="time_start" className="form-label mb-1">Time to start</label>
+                        <input type="datetime-local" className="form-control form-control" id="time_start" onChange = {(e)=>{setTime(e.target.value)}} placeholder="Time"/>
                     </div>
                     <button type="submit" className="btn btn-success submit_create_contest" data-bs-dismiss="modal" >
                         submit
