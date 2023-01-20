@@ -44,7 +44,7 @@ function Navbar() {
                 <NavLink className="nav-link navbar_btn mx-1 text-black" to="/login">Login</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link navbar_btn mx-1" to="/register">Register</NavLink>
+                <NavLink className="nav-link navbar_btn mx-1 text-black" to="/register">Register</NavLink>
               </li>
           </>
         )

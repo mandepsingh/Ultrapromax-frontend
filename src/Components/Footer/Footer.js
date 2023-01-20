@@ -7,10 +7,10 @@ function Footer() {
     <>
     <footer className="cb_footer">
         <div className="d-flex justify-content-between">
-            <div className="p-2">
+            <div className="p-2 mx-5">
                 Copyright © 2022 | Coding Bucks | Help Center | Jobs | Bug Bounty | Online Interview | Students | Terms Privacy Policy
             </div>
-            <div className='p-2'>          
+            <div className='p-2 mx-5'>          
                 <img src={Flag} alt="india flag"/> INDIA
             </div>
         </div>      

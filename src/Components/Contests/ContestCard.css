@@ -5,10 +5,11 @@
     border-radius: 10px;
     box-shadow: 2px 3px 7px #cacbca;
     padding: 10px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Quando';
     color: rgb(111, 91, 91);
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 12px;
+    text-align: center;
+    /* font-weight: 500; */
 }
 
 .contest_card:hover{
@@ -20,7 +21,7 @@
 
 .heading{
     color: #403348;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .contest_name{
@@ -47,6 +48,6 @@
 }
 
 .hr{
-    color: rgb(18, 27, 63);
-    opacity: 0.8;
+    color: rgb(28, 33, 48);
+    opacity: 0.6;
 }

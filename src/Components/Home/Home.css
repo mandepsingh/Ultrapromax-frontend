@@ -2,7 +2,7 @@
     background-color: #F6F9FF;
 }
 .cb_header{
-    height: 95vh;
+    height: 90vh;
     background-color: #C2C6E4;
     clip-path: polygon(
         0 0,
@@ -123,7 +123,7 @@
     margin-bottom: 40px;
     text-align: center;
     padding-top: 20px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     font-family: 'Quando';
     opacity: 0.8;
@@ -133,7 +133,7 @@
 .heading_join_contest{
     padding-top: 20px;
     margin-bottom: 40px;
-    font-size: 18px;
+    font-size: 16px;
     text-align: center;
     font-family: 'Quando';
     font-weight: 600;
@@ -202,7 +202,7 @@
 
 .heading_top_coder{
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     padding-top: 20px;
     font-family: 'Quando';
     margin-bottom: 40px;
@@ -271,6 +271,7 @@
     object-fit: cover;
     object-position: center center;
     margin: 25px;
+    border: 2px solid rgb(255, 255, 255);
 }
 
 .coder_card_info{
@@ -318,9 +319,18 @@
 
 .faq_container{
     /* background: linear-gradient(180deg, #F5F5F5 62.33%, rgba(245, 245, 245, 0) 74.31%); */
-    padding: 50px;
+    padding: 20px;
     text-align: center;
-    margin: 80px 0;
+    margin: 60px;
+    background-color: white;
+}
+
+.faq_heading{
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-family: 'Quando';
+    font-weight: 600;
+    opacity: 0.8;
 }
 
 .home_image {
@@ -338,39 +348,112 @@
       54px 54px 28px -10px rgba(34, 33, 81, 0.15);
 }
   
-/*center the heading and lines*/
 
-.heading_create_contest, 
-.heading_join_contest, 
-.heading_top_coder {
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+.rating_container{
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 40px;
+    overflow: scroll;
+    overflow-y: hidden;
+}
+
+.rating_container::-webkit-scrollbar {
+    display: none;
+}
+
+.rating_card{
+    height: 250px;
+    min-width: 350px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    text-align: left;
+    margin: 15px;
+    box-shadow: 2px 3px 8px rgb(206, 203, 203);
+}
+
+.rater_avatar{
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center center;
+    margin: 10px;
+    margin-left: 30px;
+    position: relative;
+    top: -40px;
+    border: 3px solid white;
+}
+
+.rater_name{
+    display: inline-block;
+    font-weight: 600;
+    position: relative;
+    top: -25px;
+}
+
+.rater_winnings{
+    background-color: rgb(49, 28, 28);
+    color: white;
+    padding: 10px;
+    margin-bottom: 0;
+    font-weight: 500;
+    margin-top: -30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rater_winnings > p {
+    margin: 0;
+}
+
+.rater_review{
+    padding: 10px;
+    /* padding-bottom: 20px; */
 }
 
 
-/*add and adjust the lines*/
 
-.heading_create_contest:before,
-.heading_create_contest:after, 
-.heading_join_contest:before,
-.heading_join_contest:after, 
-.heading_top_coder:before,
-.heading_top_coder:after {
-	content: '';
-	border-top: 2px solid;
-	margin: 0 20px 0 0;
-	flex: 1 0 20px;
-	color: #666666;
+@media screen and (min-width: 580px) {
+   
+    /*center the heading and lines*/
+
+    .heading_create_contest, 
+    .heading_join_contest, 
+    .heading_top_coder {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 18px;
+    }
+
+
+    /*add and adjust the lines*/
+
+    .heading_create_contest:before,
+    .heading_create_contest:after, 
+    .heading_join_contest:before,
+    .heading_join_contest:after, 
+    .heading_top_coder:before,
+    .heading_top_coder:after {
+        content: '';
+        border-top: 2px solid;
+        margin: 0 20px 0 0;
+        flex: 1 0 20px;
+        color: #666666;
+    }
+
+
+    /* add spacing between heading and lines */
+
+    .heading_create_contest:after, 
+    .heading_join_contest:after,
+    .heading_top_coder:after {
+        margin: 0 0 0 20px;
+    }
+
 }
 
-
-/* add spacing between heading and lines */
-
-.heading_create_contest:after, 
-.heading_join_contest:after,
-.heading_top_coder:after {
-	margin: 0 0 0 20px;
-}
