@@ -50,11 +50,12 @@ function LiveContests(props) {
             contest_list && <SearchContest contests={contest_list} setFilteredContest={setFilteredContest}/>
           }
         </div>
+        <hr/>
         <div className='row'>
             {
               !filteredContest && (contest_list ? contest_list.data.map( record => {
                   return(
-                    <div className='col-lg-4 col-md-6' key={record._id} >
+                    <div className='col-lg-6 col-md-12' key={record._id} >
                       {/* {console.log(record)} */}
                       <ContestCard contest = {record} show={"show"}/>
                     </div>  
@@ -65,7 +66,7 @@ function LiveContests(props) {
             {
               filteredContest && filteredContest !== "no data" && filteredContest.map( record => {
                   return(
-                    <div className='col-lg-4 col-md-6' key={record._id} >
+                    <div className='col-lg-6 col-md-12' key={record._id} >
                       <ContestCard contest = {record} show={"show"}/>
                     </div>  
                   )

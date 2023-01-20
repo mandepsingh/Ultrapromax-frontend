@@ -20,3 +20,7 @@
     text-align: center;
     font-size: 13px;
 }
+
+.navbar_btn a:hover{
+    color: black;
+}

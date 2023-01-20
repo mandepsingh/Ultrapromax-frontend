@@ -2,6 +2,8 @@ import React,{ useState, useContext  } from 'react'
 import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import './Modal.css'
+import { BsArrowRightCircle } from "react-icons/bs";
+
 
 function Modals() {
     const {state, dispatch} = useContext(UserContext);
@@ -110,7 +112,7 @@ function Modals() {
     <>
     {/* <!-- Button trigger modal --> */}
     <button type="button" className="contest_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Create Contest
+    <BsArrowRightCircle style={{marginBottom:"3px"}}/> Create Contest
     </button>
 
     {/* <!-- Modal --> */}

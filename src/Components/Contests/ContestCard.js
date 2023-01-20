@@ -109,51 +109,35 @@ function ContestCard(props) {
       }
 
     return (
-        // <div className=''>
-        //     <div className="card mb-5 mx-2 ">
-        //       <div className={colorBandClass(record.level)}></div>
-        //       <div className="card-body">
-        //         <h5 className="card-title">{record.contestname}</h5>
-        //       </div>
-        //       <ul className="list-group list-group-flush">
-        //         <li className="list-group-item">Difficulty Level : {record.level}</li>
-        //         <li className="list-group-item">Creator Name : {record.creatorname}</li>
-        //         <li className="list-group-item">Amount : {record.amount}</li>
-        //         <li className="list-group-item">Start Date : {contest_date}</li>
-        //         <li className="list-group-item">Start Time : {contest_time} hr</li>
-        //       </ul>
-        //       {
-        //         props.show !== "hide" &&
-        //         <div className="card-body">
-        //           <button className='btn btn-success' onClick={()=>joinContest(record)}>Join Contest</button>
-        //         </div>
-        //       }
-              
-        //     </div>
-
-        // </div>
       <>
       <div className='contest_card'>
         <div className='card_top'>
-          <div className='heading'>
+          <div className='d-flex justify-content-between heading'>
+            <p><b>Contest Name</b></p>
             <p><b>{record.contestname.charAt(0).toUpperCase() + record.contestname.slice(1)}</b></p> 
-            {/* <p>Contest Name</p> */}
+          </div>
+          <div className='d-flex justify-content-between'>
+            <p>Contest Id</p>
+            <p>{record.contestid}</p> 
           </div>
           <div className='d-flex justify-content-between'>
             <p>Admin Name</p>
             <p>{record.creatorname && record.creatorname.charAt(0).toUpperCase() + record.creatorname.slice(1)}</p> 
           </div>
+          
         </div>
-        <hr/>
-        <div className='card_mid'>
+        <hr className='hr'/>
+        <div className='card_mid d-flex justify-content-between'>
           <div className=''>
             <p className='mb-0'>Level</p>
             <p> {record.level}</p>
+          </div>
+          <div>
             <p className='mb-0'>Amount</p>
             <p> {record.amount}</p>
           </div>
         </div>
-        <hr/>
+        <hr className='hr'/>
         <div className='card_bottom'>
           <div className='d-flex justify-content-between'>
             <p>Starting Day</p>

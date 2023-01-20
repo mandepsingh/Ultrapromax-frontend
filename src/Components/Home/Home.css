@@ -1,3 +1,6 @@
+.home_body{
+    background-color: #F6F9FF;
+}
 .cb_header{
     height: 95vh;
     background-color: #C2C6E4;
@@ -10,19 +13,17 @@
 }
 
 .cb_text{
-    margin-top: 15%;  
+    margin-top: 12%;  
 }
 
 .quote{
-    font-size: 40px;
+    font-size: 36px;
     font-family: 'KoHo', sans-serif;
     color: white;
-    margin: 0;
+    margin-bottom: 10px;
     font-style: normal;
     font-weight: 700;
-    font-size: 40px;
     line-height: 52px;
-    color: #FFFFFF;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -36,19 +37,29 @@
 
 .home_image{
     width: 100%;
+    height: 85%;
     border-radius: 10px;
     margin-top: 25%;
 }
 
 .cb_breif{
-    font-family: 'Quando';
-    font-size: 24px;
+    font-family: 'Quantico', sans-serif;
+    font-size: 20px;
     width: 80%;
-    margin-top: 40px;
+    margin-top: 80px;
     font-weight: 500;
     color: #7A7676;
 }
 
+.cb_mission{
+    background-color: #DBDDEE;
+    padding: 5px;
+    font-size: 14px;
+    font-family: 'Quando';
+    text-align: center;
+    word-spacing: 0.1rem;
+    /* font-weight: normal; */
+}
 .explore_btn_cover{
     margin-top: 40px;
     width: 116px;
@@ -75,44 +86,93 @@
 }
 
 .create_contest{
-    background: linear-gradient(180deg, rgba(194, 198, 228, 0) 31.25%, #C2C6E4 76.04%);
+    /* background: linear-gradient(180deg, rgba(194, 198, 228, 0) 10%, rgba(194, 198, 228, 0.55) 15%, rgba(194, 198, 228, 0.116505) 77.95%); */
+    margin-top: 60px;
+    /* background: linear-gradient(180deg, rgba(194, 198, 228, 0) 15%, rgba(194, 198, 228, 0.85) 17%, rgba(194, 198, 228, 0.116505) 85.95%); */
     text-align: center;
 }
+
+
+.create_contest_cards {
+    transform: perspective(1500px) rotateY(15deg);
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    transition: transform 1s ease 0s;
+}
+
+.create_contest_cards:hover {
+    transform: perspective(3000px) rotateY(5deg);
+}
+
+
+.join_contest_cards {
+    transform: perspective(1500px) rotateY(15deg);
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    transition: transform 1s ease 0s;
+    margin: 15px;
+}
+
+.join_contest_cards:hover {
+    transform: perspective(3000px) rotateY(5deg);
+}
+
+
 
 .heading_create_contest{
     margin-bottom: 40px;
     text-align: center;
+    padding-top: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Quando';
+    opacity: 0.8;
+
 }
 
 .heading_join_contest{
-    padding-top: 60px;
+    padding-top: 20px;
     margin-bottom: 40px;
+    font-size: 18px;
     text-align: center;
+    font-family: 'Quando';
+    font-weight: 600;
+    opacity: 0.8;
+
 }
 
-.crete_contest_cards{
+.create_contest_cards{
     height: 230px;
     margin: 15px;
-    border-radius: 5px;
+    border-radius: 15px;
 }
 
 .card_header{
     height: 120px;
     background-color:  #6972C5;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.card_header img{
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 .card_body{
     background-color:  white;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     height: 110px;
     text-align: center;
     padding: 10px;
+    font-size: 13px;
 }
 
 .join_contest{
-    background: linear-gradient(180deg, #C2C6E4 39.06%, rgba(255, 255, 255, 0) 100%);
+    margin-top: 60px;
+    /* background: linear-gradient(180deg, rgba(194, 198, 228, 0) 15%, rgba(194, 198, 228, 0.85) 17%, rgba(194, 198, 228, 0.116505) 85.95%); */
     text-align: center;
 
 }
@@ -124,7 +184,8 @@
     color: white;
     border-radius: 10px;
     font-weight: 400;
-    margin: 30px auto;
+    margin: 50px auto;
+    margin-bottom: 30px;
     text-decoration: none;
 }
 
@@ -135,12 +196,18 @@
 }
 
 .top_coders_div{
-    margin: 150px 0;
-    background: linear-gradient(180deg, rgba(245, 245, 245, 0) 22.74%, #f4efef 98.26%);
+    margin: 40px 0;
+    /* background: linear-gradient(180deg, rgba(194, 198, 228, 0) 15%, rgba(194, 198, 228, 0.85) 17%, rgba(194, 198, 228, 0.116505) 85.95%) */
 }
 
 .heading_top_coder{
     text-align: center;
+    font-size: 18px;
+    padding-top: 20px;
+    font-family: 'Quando';
+    margin-bottom: 40px;
+    font-weight: 600;
+    opacity: 0.8;
 }
 
 .top_coder_card_container{
@@ -158,22 +225,49 @@
     flex-direction: row;
     width: fit-content;
     margin: auto;
-    margin-bottom: 90px;
+    margin-bottom: 30px;
 }
 
 .topcoder_card{
     display: flex;
-    height: 150px;
-    border-radius: 5px;
-    background-color: #efe3e3;
-    margin: 20px;
-    min-width: 350px
+    height: 175px;
+    border-radius: 10px;
+    background-color: white;
+    margin: 40px;
+    min-width: 350px;
+    max-width: 350px;
+    font-size: 14px;
+    box-shadow: 2px 3px 5px rgb(195 189 189);
+}
+
+.topcoder_card {
+    transform:
+      perspective(800px)
+      rotateY(25deg) scale(0.9)
+      rotateX(10deg);
+    filter: blur(1px);
+    opacity: 1;
+    transition: 0.6s ease all;
+}
+
+.topcoder_card:hover {
+    transform:
+      perspective(800px)
+      rotateY(0)
+      translateY(0)
+      rotateX(0)
+      scale(1);
+    filter: blur(0);
+    opacity: 1;
 }
 
 .coder_avatar{
     border-radius: 50%;
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
+    position: relative;
+    left: -50px;
+    top: 35px;
     object-fit: cover;
     object-position: center center;
     margin: 25px;
@@ -181,17 +275,102 @@
 
 .coder_card_info{
     display: inline-block;
-    padding: 20px;
+    position: relative;
+    right: 45px;
+    top: 0px;
+    text-align: center;
+    width: 80%;
+}
+
+.top_coder_name{
+    background: rgba(105, 114, 197, 0.61);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    font-size: 16px;
+    color: white;
+}
+
+.top_coder_info{
+    width: 33%;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: rgba(53, 30, 30, 0.772);
+}
+
+.top_coder_info p{
+    margin: 0;
+}
+
+.top_coder_win_amount{
+    font-weight: 700;
+    color: rgba(223, 73, 73, 0.88);
+    margin-bottom: 0;
 }
 
 .rating_review{
     text-align: center;
-    margin: 40px;
+    margin: 40px 0;
+    /* background: linear-gradient(180deg, rgba(194, 198, 228, 0) 15%, rgba(194, 198, 228, 0.85) 17%, rgba(194, 198, 228, 0.116505) 85.95%) */
+
 }
 
 .faq_container{
-    background: linear-gradient(180deg, #F5F5F5 62.33%, rgba(245, 245, 245, 0) 74.31%);
+    /* background: linear-gradient(180deg, #F5F5F5 62.33%, rgba(245, 245, 245, 0) 74.31%); */
     padding: 50px;
     text-align: center;
     margin: 80px 0;
+}
+
+.home_image {
+    /* transform: rotateX(3deg) rotateZ(3deg) rotateY(0deg); */
+    transform-style: preserve-3d;
+    border-radius: 10px;
+    box-shadow: -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+      28px 28px 28px 0 rgba(34, 33, 81, 0.25);
+    transition: 0.4s ease-in-out transform, 0.4s ease-in-out box-shadow;
+}
+
+.home_image:hover {
+    transform: translate3d(0px, -16px, 0px) rotateX(10deg) rotateZ(0deg);
+    box-shadow: -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+      54px 54px 28px -10px rgba(34, 33, 81, 0.15);
+}
+  
+/*center the heading and lines*/
+
+.heading_create_contest, 
+.heading_join_contest, 
+.heading_top_coder {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+
+/*add and adjust the lines*/
+
+.heading_create_contest:before,
+.heading_create_contest:after, 
+.heading_join_contest:before,
+.heading_join_contest:after, 
+.heading_top_coder:before,
+.heading_top_coder:after {
+	content: '';
+	border-top: 2px solid;
+	margin: 0 20px 0 0;
+	flex: 1 0 20px;
+	color: #666666;
+}
+
+
+/* add spacing between heading and lines */
+
+.heading_create_contest:after, 
+.heading_join_contest:after,
+.heading_top_coder:after {
+	margin: 0 0 0 20px;
 }

@@ -18,7 +18,7 @@ function Navbar() {
                 <NavLink className="nav-link mx-2" to="/">{state.name.charAt(0).toUpperCase() + state.name.slice(1)}</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link mx-2" to="/logout">Logout</NavLink>
+                <NavLink className="nav-link mx-2 navbar_btn" to="/logout">Logout</NavLink>
               </li>
           </>
         )
@@ -26,10 +26,10 @@ function Navbar() {
       else{
         return(
           <>
-              {/* <li className="nav-item">
-                <NavLink className="nav-link text-white" to="/contests">Contests</NavLink>
-              </li> */}
               <li className="nav-item">
+                <NavLink className="nav-link text-white mx-5" to="/contests">Contests</NavLink>
+              </li>
+              {/* <li className="nav-item">
               <NavLink className="nav-link" to="/contests">Contests</NavLink>
             </li>
             <li className="nav-item">
@@ -37,15 +37,15 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="#">Faq</NavLink>
-            </li>
+            </li> */}
               
               <li className="nav-item">
                 {/* <button className='nav-link navbar_btn'>Login</button> */}
-                <NavLink className="nav-link navbar_btn mx-1" to="/login">Login</NavLink>
+                <NavLink className="nav-link navbar_btn mx-1 text-black" to="/login">Login</NavLink>
               </li>
-              {/* <li className="nav-item">
+              <li className="nav-item">
                 <NavLink className="nav-link navbar_btn mx-1" to="/register">Register</NavLink>
-              </li> */}
+              </li>
           </>
         )
       }
@@ -55,7 +55,7 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark ">
         <div className="container-fluid container">
-          <a className="navbar-brand brand_name" href="/"><img src={Logo} height={"24px"}/></a>
+          <a className="navbar-brand brand_name" href="/"><img src={Logo} height={"40px"}/></a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>

@@ -1,24 +1,26 @@
 .contest_card{
-    background-color: aliceblue;
+    background-color: #DBDDEE;
     margin: 10px;
     margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 2px 3px 7px #c5e4c5;
+    border-radius: 10px;
+    box-shadow: 2px 3px 7px #cacbca;
     padding: 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: rgb(111, 91, 91);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
 }
 
 .contest_card:hover{
-    transform: scale(1.1);
-    transition-duration: 0.4s;
+    transform: scale(1.03);
+    transition-duration: 0.7s;
+    transition-timing-function: ease-in-out;
+    box-shadow: none;
 }
 
 .heading{
-    color: #6a5576;
-    font-size: 15px;
+    color: #403348;
+    font-size: 16px;
 }
 
 .contest_name{
@@ -32,7 +34,7 @@
 }
 
 .contest_card p{
-    margin: 0;
+    margin: 5px;
 }
 
 .join_btn{
@@ -42,4 +44,9 @@
     background-color: rgb(125, 134, 151);
     color: rgb(255, 255, 255);
     margin-top: 5px;
+}
+
+.hr{
+    color: rgb(18, 27, 63);
+    opacity: 0.8;
 }

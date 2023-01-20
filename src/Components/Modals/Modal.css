@@ -16,5 +16,7 @@
     color: white;
     border-radius: 10px;
     font-weight: 400;
-    margin: 30px auto;
+    margin: 50px auto;
+    margin-bottom: 30px;
+    text-decoration: none;
 }

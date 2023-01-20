@@ -13,9 +13,10 @@
     outline: none;
     width: 90%;
     color: #091427;
+    font-size: 12px;
 }
 .btn_search_contest{
-    background-color: #93a7c4;
+    background: #595E8B;
     color: white;
     border: none;
     font-weight: 500;
