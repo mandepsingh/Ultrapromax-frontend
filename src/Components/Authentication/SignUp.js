@@ -13,13 +13,14 @@ function SignUp(props) {
     const [gender, setGender] = useState("");
     const [phone, setPhone] = useState("");
     const [dateofbirth, setDateofbirth] = useState("");
+    const [city, setCity] = useState("");
     const [password, setPassword] = useState("");
     const [confirmpassword, setConfirmpassword] = useState("");
     const [msg, setMsg] = useState("");
     
     function submitData(e){
         e.preventDefault();
-        let data = {firstname, lastname, email, gender, phone, dateofbirth, password, confirmpassword};
+        let data = {firstname, lastname, email, gender, password, confirmpassword, city};
         if(password !== confirmpassword){
             setMsg("Password and Confirm password should be same");
             console.log(msg);

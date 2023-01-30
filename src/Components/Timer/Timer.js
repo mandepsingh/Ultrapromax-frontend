@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect , useContext} from 'react';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../App"
-
+import "./Timer.css";
 
 function Timer(props) {
   const [days, setDays] = useState(0);
@@ -40,11 +40,11 @@ function Timer(props) {
   return (
     <div className="timer">
         {
-          miliSeconds > 0 && <p className='contest_timer'>Time required to start {days} Days, {hours} hours, {minutes} Minutes, {seconds} Seconds</p> 
+          miliSeconds > 0 && <p className='mb-0'>The contest will start in  { days > 0 && <span> {days} Days </span> } { hours > 0 && <span> {hours} Hours </span> } { minutes > 0 && <span> {minutes} Minutes </span> } {seconds} Seconds</p> 
         }
         {
            
-           miliSeconds < 0 && <div>{props.setTriggerContest(false)}</div> && <div className='contest_timer'>Contest is started</div>
+           miliSeconds < 0 && <div>{props.setTriggerContest(false)}</div> && <p className='mb-0'>Contest is started</p>
           //  && <div>{console.log("time....",miliSeconds)}</div>
         }
         

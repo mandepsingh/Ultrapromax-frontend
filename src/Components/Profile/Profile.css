@@ -1,0 +1,37 @@
+
+.profile_card{
+    /* border: 1px solid green; */
+    position: absolute;
+    top: 60px;
+    right: 8%;
+    width: 300px;
+    background-color: azure;
+    z-index: 5;
+    padding: 15px;
+    border-radius: 8px;
+    color: rgb(111, 101, 101);
+}
+
+.profile_img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.Profile_name{
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.signOut_link{
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(111, 101, 101);
+
+}
+.signOut_link:hover{
+    color: rgb(111, 101, 101);
+}

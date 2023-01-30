@@ -28,12 +28,33 @@ function LeaderBoard() {
 
 
     // on click solve problem
-    function solveProblem(question){
+    const solveProblem = async(question) => {
         // navigate(`/compiler/`+ contestId + `/` + questionid)
-        setShowCompiler(true);
-        setQuestion(question);
-        setQuestionNumber(map1.get(question._id));
+        try {
+            const res = await fetch(`https://ultrapro1.onrender.com/problems/id/`+ question.id, {
+              method: 'GET',
+              credentials: "same-origin",
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              credentials: "include",
+            }).then((result) => {
+              return result.json();
+            }).then((data) => {
+              console.log("sadfasdfasd",data);
+              setQuestion(data);
+            })
+          }
+          catch (err) {
+            console.log(err);
+          }
+        
+        setShowCompiler(true); 
+        setQuestionNumber(map1.get(question.id));
+        console.log(questionNumber);
     }
+
 
     // validate url 
     const validateUrl = async() =>{
@@ -87,7 +108,7 @@ function LeaderBoard() {
             participantStatus()
         }, 30000);
       }, []);
-
+    
    
 
   return (
@@ -97,7 +118,7 @@ function LeaderBoard() {
         showLeaderboard && !showCompiler && 
         <>
             <h2 className='contest_name_heading' >{contestdata.contestname}</h2>
-            <div className='timer'>
+            <div className='mx-3'>
                 {contestdata && <ReverseTimer time = {contestdata.timestart} setShowQuestion={setShowQuestion} page={"problems"}/>}
             </div>
             <div className='row justify-content-center'>
@@ -107,7 +128,8 @@ function LeaderBoard() {
                     <h3 className='problems_heading'>All problems</h3>
                     {
                         contestdata && contestdata.problems[0].map(record => {
-                            map1.set(record._id, qn++)
+                            console.log(record, "records");
+                            map1.set(record.id, qn++)
                             return(
                                 <>
                                 <div className='problem_card' >

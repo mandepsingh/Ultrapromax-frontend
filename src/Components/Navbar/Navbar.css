@@ -24,3 +24,11 @@
 .navbar_btn a:hover{
     color: black;
 }
+
+.navBar_profile_img{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center center;
+}

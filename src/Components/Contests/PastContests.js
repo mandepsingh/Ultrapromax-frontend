@@ -14,7 +14,7 @@ function PastContests() {
   const dataFetch = async () => {
     const data = await (
       await fetch(
-        "https://ultrapro1.onrender.com/livecontest/past"
+        "https://ultrapro1.onrender.com/contest/contestpast"
       )
     ).json();
    

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaCheck, FaTimes } from "react-icons/fa";
+import { FiCheck, FiX } from "react-icons/fi";
 
 function Requests(props) {
     var reqNo = 1;
@@ -33,7 +33,7 @@ function Requests(props) {
     <>
       <div className="contest_participants">
 
-        <h4 className='m-2'>Requests </h4>
+        {/* <h4 className='m-2'>Requests </h4> */}
         
             <table className="table table-striped">
             <thead>
@@ -54,8 +54,8 @@ function Requests(props) {
                     <th scope="row">{reqNo++}</th>
                     <td>{record.username}</td>
                     <td>{record.userid}</td>
-                    <td><button className='accept_req mx-2' onClick ={()=>updateStatus("accept", record.userid)}><FaCheck size={24}/></button></td>
-                    <td><button className='reject_req mx-2' onClick ={()=>updateStatus("decline", record.userid)}><FaTimes size={24}/></button></td>
+                    <td><button className='accept_req mx-2' onClick ={()=>updateStatus("accept", record.userid)}><FiCheck size={20}/></button></td>
+                    <td><button className='reject_req mx-2' onClick ={()=>updateStatus("decline", record.userid)}><FiX size={20}/></button></td>
                     </tr>
                     )
                 }

@@ -1,16 +1,11 @@
 .contest_name_heading{
     text-align: center;
-}
-.timer{
-    background-color: rgb(239, 246, 245);
-    height: 60px;
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    font-size: larger;
     margin: 20px;
-    padding: 15px;
+    color: rgb(54, 54, 82);
+    font-family: 'Quando';
+    font-weight: 500;
 }
+
 .liveboard{
     padding: 0 10px;
 }

@@ -51,15 +51,22 @@
     color: #7A7676;
 }
 
-.cb_mission{
+.mission_scrolling{
+    overflow: hidden;
     background-color: #DBDDEE;
     padding: 5px;
     font-size: 14px;
     font-family: 'Quando';
+}
+.cb_mission{
     text-align: center;
     word-spacing: 0.1rem;
-    /* font-weight: normal; */
+    font-weight: normal;
+   
 }
+
+    
+
 .explore_btn_cover{
     margin-top: 40px;
     width: 116px;
@@ -368,7 +375,7 @@
     background-color: #ffffff;
     border-radius: 10px;
     text-align: left;
-    margin: 15px;
+    margin: 20px;
     box-shadow: 2px 3px 8px rgb(206, 203, 203);
 }
 
@@ -413,7 +420,19 @@
     /* padding-bottom: 20px; */
 }
 
+@media screen and (max-width: 1000px) {
+    .mission_scrolling{
+        display: none;
+       
+    }
+}
 
+@media screen and (max-width: 775px) {
+    .home_image{
+        display: none;
+       
+    }
+}
 
 @media screen and (min-width: 580px) {
    

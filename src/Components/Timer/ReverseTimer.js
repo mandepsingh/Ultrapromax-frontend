@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect , useContext} from 'react';
 import { useNavigate } from "react-router-dom";
+import { TiStopwatch } from 'react-icons/ti';
 
 function ReverseTimer(props) {
     
@@ -37,16 +38,16 @@ function ReverseTimer(props) {
         <>
         {
             props.page === "compiler" &&
-            remainingTime > 0 && <p>Time {hours} : {minutes} : {seconds} {props.setShowQuestion(true) }</p> 
+            remainingTime > 0 && <p className='mb-0'><TiStopwatch size={16} style={{marginBottom:"3px"}}/>{hours > 0 && <span> {hours} :</span> } {minutes > 0 && <span> {minutes} : </span>} {seconds} {props.setShowQuestion(true) }</p> 
         }
         {
             props.page === "problems" &&
             <div className="timer">
                 {
-                    remainingTime > 0 && <p className='contest_timer'>Time remaining {hours} hours, {minutes} Minutes, {seconds} Seconds {props.setShowQuestion(true) }</p> 
+                    remainingTime > 0 && <p className='contest_timer mb-0'>Time remaining { days > 0 && <span> {days} Days </span> } { hours > 0 && <span> {hours} Hour </span> } { minutes > 0 && <span> {minutes} Minutes </span> } {seconds} Seconds {props.setShowQuestion(true) }</p> 
                 }
                 {
-                    remainingTime <= 0 &&  <div className='contest_timer'>Contest is over {props.setShowQuestion(false) }</div>
+                    remainingTime <= 0 &&  <div className='contest_timer mb-0'>Contest is over {props.setShowQuestion(false) }</div>
                 }
             </div>
             

@@ -12,6 +12,8 @@ function Modals() {
     const [level, setLevel] = useState("");
     const [amount, setAmount] = useState("");
     const [timestart , setTime] = useState();
+    const [limit , setLimit] = useState();
+    const [mode , setMode] = useState();
     const [newContest, setNewContest] = useState();
 
     const navigate = useNavigate();
@@ -27,16 +29,16 @@ function Modals() {
             navigate("/login");
             return;
           }
-        if(amount < 10){
-            alert("Contest is not Created. Amount must be greater than or equal to 10!");
-            return;
-        }
+        // if(amount < 10){
+        //     alert("Contest is not Created. Amount must be greater than or equal to 10!");
+        //     return;
+        // }
         if(new Date(timestart) - Date.now() < 0){
             alert("Contest is not Created. Time must be greater than or equal to the Current Time");
             return;
         }
         
-        let contest_details = {contestname, level, amount, username, userid, timestart};
+        let contest_details = {contestname, level, amount, username, userid, timestart, limit, mode};
         console.log(contest_details);
         try {
             const res = await fetch("https://ultrapro1.onrender.com/contest/createcontest", {
@@ -49,16 +51,16 @@ function Modals() {
             }).then((result) => {
                 return result.json();
             }).then( async (data1) =>{
-                console.log("data1..",data1.newContest._id);
+                console.log("data1..",data1);
                 if(data1){
                     const contestid = data1.newContest._id;
                     const userid = state.userId;
                     const username = state.name;
                 
-                    let data2 = { contestid, userid, username };
+                    let data2 = { contestid, userid, username};
                     try {
-                    const res = await fetch("https://ultrapro1.onrender.com/participant_status/update", {
-                        method: 'PATCH',
+                    const res = await fetch("https://ultrapro1.onrender.com/participant_status/createstatus", {
+                        method: 'POST',
                         credentials: "same-origin",
                         headers: {
                         'Accept': 'application/json',
@@ -80,8 +82,8 @@ function Modals() {
                 
                     const data3 = { contestid, userid , username};
                     try {
-                    const res = await fetch("https://ultrapro1.onrender.com/contest/update", {
-                        method: 'POST',
+                    const res = await fetch("https://ultrapro1.onrender.com/contest/update/participant", {
+                        method: 'PATCH',
                         credentials: "same-origin",
                         headers: {
                         'Accept': 'application/json',
@@ -120,7 +122,7 @@ function Modals() {
     <div className="modal-dialog">
         <div className="modal-content">
             <div className="modal-header">
-                <h5 className="modal-title" id="staticBackdropLabel">Contest Details</h5>
+                <h5 className="modal-title" id="staticBackdropLabel">Create a contest</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
@@ -130,8 +132,20 @@ function Modals() {
                         <input type="text" className="form-control form-control" id="contest_Name" value={contestname} onChange = {(e)=>{setContestname(e.target.value)}} placeholder="" required/>
                     </div>
                     <div className="mb-3">
+                        <label htmlFor="noofparticipants" className="form-label mb-1">Number of participants</label>
+                        <input type="number" className="form-control form-control" id="noofparticipants" onChange = {(e)=>{setLimit(e.target.value)}} placeholder=""/>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="mode" className="form-label mb-1">Mode</label>
+                        <select className="form-select " value={mode} onChange = {(e)=>{setMode(e.target.value)}} >
+                            <option defaultValue>Select Mode</option>
+                            <option value="practice">Practice</option>
+                            <option value="fight">Fight</option>
+                        </select>
+                    </div>
+                    <div className="mb-3">
                         <label htmlFor="difficulty_level" className="form-label mb-1">Difficulty Level</label>
-                        <select className="form-select form-select" value={level} onChange = {(e)=>{setLevel(e.target.value)}} >
+                        <select className="form-select" value={level} onChange = {(e)=>{setLevel(e.target.value)}} >
                             <option defaultValue>Select Dificulty</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -141,9 +155,24 @@ function Modals() {
                         </select>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="contest_amount" className="form-label mb-1">Contest Amount</label>
-                        <input type="number" className="form-control form-control" id="contest_amount" value={amount} onChange = {(e)=>{setAmount(e.target.value)}} placeholder="Minimum amount should be 10"/>
+                        <label htmlFor="contest_amount" className="form-label mb-1">Contest Amount</label>                        
+                        {/* <input type="number" className="form-control form-control" id="contest_amount" value={amount} onChange = {(e)=>{setAmount(e.target.value)}} placeholder="Minimum amount should be 10"/> */}
+                        <select className="form-select form-select" value={amount} onChange = {(e)=>{setAmount(e.target.value)}} >
+                            <option defaultValue>Select Amount</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                            <option value="70">70</option>
+                            <option value="80">80</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="250">250</option>
+                            <option value="500">500</option>
+                            <option value="750">750</option>
+                            <option value="1000">1000</option>
+                        </select>
                     </div>
+                    
                     <div className="mb-3">
                         <label htmlFor="time_start" className="form-label mb-1">Time to start</label>
                         <input type="datetime-local" className="form-control form-control" id="time_start" onChange = {(e)=>{setTime(e.target.value)}} placeholder="Time"/>

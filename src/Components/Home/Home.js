@@ -48,9 +48,12 @@ function Home(props) {
 		<a name = "cb_body"/>
 
 		<div className="cb_body">
-			<p className="cb_mission">Our <span style={{color:"#E32525"}}> Mission </span> is to make <span style={{color:"#E32525"}}> DSA </span> 
-									training more <span style={{color:"#19874C"}}> Enjoyable </span> for everyone while <span style={{color:"#19874C"}}> Encouraging </span> 
-									them to begin their <span style={{color:"#E32525"}}> Competitive Programming </span> journey.</p>
+			<div className="mission_scrolling">
+				<div className="cb_mission">Our <span style={{color:"#E32525"}}> Mission </span> is to make <span style={{color:"#E32525"}}> DSA </span> 
+					training more <span style={{color:"#19874C"}}> Enjoyable </span> for everyone while <span style={{color:"#19874C"}}> Encouraging </span> 
+					them to begin their <span style={{color:"#E32525"}}> Competitive Programming </span> journey.</div>
+			</div>
+			
 			{/* create contest and join contest information */}
 			<div className="contest_info_div">
 				<div className="create_contest">
@@ -246,7 +249,7 @@ function Home(props) {
 					<div className="rating_container">
 						<div className="rating_card">
 							<img className="rater_avatar" src="https://img.freepik.com/free-photo/young-woman-with-round-glasses-yellow-sweater_273609-7091.jpg"></img>
-							<p className="rater_name">Ranveer Singh</p>
+							<p className="rater_name">Ravina Singh</p>
 							<div className="rater_winnings">
 								<p>Total Winnings</p>
 								<p> ₹ 10000</p>
@@ -254,8 +257,8 @@ function Home(props) {
 							<p className="rater_review">I have gained such a great experience with Codingbucks because it provides me programmers to competitive with and money at the same time.</p>
 						</div>
 						<div className="rating_card">
-							<img className="rater_avatar" src="https://img.freepik.com/free-photo/young-woman-with-round-glasses-yellow-sweater_273609-7091.jpg"></img>
-							<p className="rater_name">Ranveer Singh</p>
+							<img className="rater_avatar" src="https://cdn.pixabay.com/photo/2017/04/30/11/42/hijab-2272708_1280.png"></img>
+							<p className="rater_name">Preety Mishra</p>
 							<div className="rater_winnings">
 								<p>Total Winnings</p>
 								<p> ₹ 10000</p>
@@ -272,61 +275,52 @@ function Home(props) {
 							<p className="rater_review">I have gained such a great experience with Codingbucks because it provides me programmers to competitive with and money at the same time.</p>
 						</div>
 					</div>
-					
 				</div>
-
 
 				<div className="faq_container">
 					<div className="container">
 						<h3 className="faq_heading">Frequently Asked Questions</h3>
-						<div class="accordion" id="accordionExample">
-							<div class="accordion-item">
-								<h2 class="accordion-header" id="headingOne">
-								<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						<div className="accordion" id="accordionExample">
+							<div className="accordion-item">
+								<h2 className="accordion-header" id="headingOne">
+								<button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 									What is Coding Bucks
 								</button>
 								</h2>
-								<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
+								<div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+								<div className="accordion-body">
 									<strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
 								</div>
 								</div>
 							</div>
-							<div class="accordion-item">
-								<h2 class="accordion-header" id="headingTwo">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							<div className="accordion-item">
+								<h2 className="accordion-header" id="headingTwo">
+								<button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 									How To Earn Money by Coding Bucks
 								</button>
 								</h2>
-								<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
+								<div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+								<div className="accordion-body">
 									<strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
 								</div>
 								</div>
 							</div>
-							<div class="accordion-item">
-								<h2 class="accordion-header" id="headingThree">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							<div className="accordion-item">
+								<h2 className="accordion-header" id="headingThree">
+								<button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 									When do i get my money after winning
 								</button>
 								</h2>
-								<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
+								<div id="collapseThree" className="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+								<div className="accordion-body">
 									<strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
 								</div>
 								</div>
 							</div>
-							</div>
+						</div>
 					</div>	
-
-				</div>
-			
-			
-			</div>
-			
-
-
-			
+				</div>		
+			</div>	
 		</div>
 		
 		<Footer/>

@@ -15,12 +15,13 @@ function LiveContests(props) {
     props.setProgress(50);
     const data = await (
       await fetch(
-        "https://ultrapro1.onrender.com/livecontest/live"
+        "https://ultrapro1.onrender.com/contest/contestlive"
       )
     ).json();
     props.setProgress(80);
 
     // set state when the data received
+    console.log(data);
     setContestlist(data);
     props.setProgress(100);
     

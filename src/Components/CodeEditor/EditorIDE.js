@@ -1,13 +1,19 @@
 import React , {useEffect, useState, useContext} from 'react'
 import Editor from "@monaco-editor/react";
 import Moment from "moment";
+import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
+import { MdPlayArrow } from "react-icons/md";
+
 
 function EditorIDE(props) {
 
   console.log("qn", props.questionNumber);
 
 
-  const [code, setCode] = useState("// Write Code here...");
+  const [source_code, setSourceCode] = useState("// Write Code here...");
+  const [consoleLeft, setconsoleLeft] = useState(true);
+  
   // const params = useParams();
   const questionid = props.questionid
   const conteststatus = "running"
@@ -16,18 +22,33 @@ function EditorIDE(props) {
   const userid = props.userid;
 
   function onChange(newValue) {
-    setCode(newValue);
-    localStorage.setItem(questionid, code);
+    setSourceCode(newValue);
+    localStorage.setItem(questionid, source_code);
     localStorage.setItem("timeofcode", Date.now());
   }
 
+  function setconsole(e){
+    console.log("sssss")
+    props.setShowConsoleTab(!props.showConsoleTab);
+    if(e === "left"){
+      setconsoleLeft(false);
+    }
+    if(e === "right"){
+      setconsoleLeft(true);
+    }
+  }
+
   const runCode = async()=>{
-    console.log("mycode",code)
-    const testcase1 = '23'
-    const testcase2 = '12'
+    props.setShowConsoleTab(true);
+    setconsoleLeft(false);
+
+    console.log("mycode",source_code)
+    const stdin = props.testcase;
+    // const testcase2 = '12'
     props.setRunCode(true);
 
-    let data = {userid, code, testcase1, testcase2, conteststatus};
+    let data = {source_code, stdin, language_id : "54" };
+    console.log(data);
     try {
         const res = await fetch("https://ultrapro1.onrender.com/submit/run", {
         method: 'POST',
@@ -40,11 +61,10 @@ function EditorIDE(props) {
         body: JSON.stringify(data)
       }).then((result) => {
         return result.json();
-      }).then((data) => {
-        // console.log(data);
-        intervalId = setInterval(async()=>{
+      }).then(async(data) => {
+        console.log("run_data",data.res.token);
           try {
-            const res = fetch(`https://ultrapro1.onrender.com/submit/run/`+ data.jobId, {
+            const res = await fetch(`https://ultrapro1.onrender.com/submit/run/status/`+ data.res.token, {
               method: 'GET',
               credentials: "same-origin",
               headers: {
@@ -56,16 +76,13 @@ function EditorIDE(props) {
               return result.json();
             }).then((data) => {
               console.log(data);
-              if(data.status === "success"){
-                const startTime = Moment(data.submittedAt);
-                const endTime = Moment(data.completedAt);
-                const compiletime = endTime.diff(startTime, 'seconds', true);
-                props.setCompileTime(compiletime);
+              if(data.name === "Error"){
+                console.log("object")
+                props.setCompileTime("error");
                 props.setRunCode(false);
-                clearInterval(intervalId);
               }
-              else if(data.status !== "pending"){
-                clearInterval(intervalId);
+              else {
+                props.setCompileTime(data.time);
                 props.setRunCode(false);
               }
               
@@ -74,7 +91,6 @@ function EditorIDE(props) {
           catch (err) {
             console.log(err);
           }
-        }, 1000);
       })
     }
     catch (err) {
@@ -83,11 +99,15 @@ function EditorIDE(props) {
   }
     
   const submitCode = async()=>{
-    console.log("mycode",code)
+    props.setShowConsoleTab(true);
+    setconsoleLeft(false);
+    
+    console.log("mycode",source_code)
     props.setRunCode(true);
     console.log(true);
     const problemnumber = props.questionNumber.toString();
     const contestid = props.contestid;
+    const questionid = props.questionid;
     const testcase1 = "2 3"
     const testcase2 = "1 2"
     const testcase3 = "1 2"
@@ -97,7 +117,7 @@ function EditorIDE(props) {
     const conteststarttime = props.conteststarttime;
     const language = "cpp"
    
-    let data = { problemnumber, contestid, userid, code, language, testcase1, testcase2, testcase3, expectedres1, expectedres2, expectedres3, conteststarttime, conteststatus};
+    let data = { contestid, questionid, userid, source_code, language_id : "54"};
     console.log("code data",data);
     try {
       const res = await fetch("https://ultrapro1.onrender.com/submit", {
@@ -111,40 +131,39 @@ function EditorIDE(props) {
         body: JSON.stringify(data)
       }).then((result) => {
         return result.json();
-      }).then((data) => {
+      }).then(async (data) => {
         console.log(data);
-        intervalId = setInterval(async()=>{
           try {
-            const res = fetch(`https://ultrapro1.onrender.com/submit/`+ data.jobId, {
-              method: 'GET',
+            let submitdata = {contestid, userid, problemnumber};
+            console.log("ssgadfsd",submitdata);
+            const res = await fetch(`https://ultrapro1.onrender.com/submit/status/`+ data.res.token, {
+              method: 'POST',
               credentials: "same-origin",
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
               credentials: "include",
+              body: JSON.stringify(submitdata)
             }).then((result) => {
               return result.json();
             }).then((data) => {
               console.log(data);
-              if(data.status === "success"){
-                const startTime = Moment(data.submittedAt);
-                const endTime = Moment(data.completedAt);
-                const compiletime = endTime.diff(startTime, 'seconds', true);
-                props.setCompileTime(compiletime);
+              if(data.name === "Error"){
+                console.log("object")
+                props.setCompileTime("error");
                 props.setRunCode(false);
-                clearInterval(intervalId);
               }
-              else if(data.status !== "pending"){
+              else {
+                props.setCompileTime(data.time);
                 props.setRunCode(false);
-                clearInterval(intervalId);
               }
             })
           }
           catch (err) {
             console.log(err);
           }
-        }, 1000);
+        
         
       })
     }
@@ -163,7 +182,7 @@ function EditorIDE(props) {
       }
       const savedCode = localStorage.getItem(questionid);
       if(savedCode){
-        setCode(savedCode);
+        setSourceCode(savedCode);
       } 
   }, []);
 
@@ -172,16 +191,28 @@ function EditorIDE(props) {
     <>
         <Editor
         height="100%"
+        padding="10px"
         defaultLanguage="C++"
-        value= {code}
+        value= {source_code}
         onChange={onChange}
         options={{
           wordWrap : 'on'
         }}
       />
-     
-      <button className='btn btn-success run_code_btn' onClick={runCode}>Run code</button>
-      <button className='btn btn-success submit_code_btn' onClick={submitCode}>submit code</button>
+     <div className='base_btn'>
+      {
+        consoleLeft  == true ? 
+          <button className='btn' onClick={()=> setconsole("left")}>Console <IoIosArrowUp size={17} style={{marginBottom:"3px"}}/></button> :
+          <button className='btn' onClick={()=> setconsole("right")}>Console <IoIosArrowDown size={17} style={{marginBottom:"3px"}}/></button>
+      }
+
+        <div className='float_right'>
+          <button className='run_code_btn' onClick={runCode}>Run <MdPlayArrow size={18} style={{marginBottom:"3px"}}/></button>
+          <button className='submit_code_btn' onClick={submitCode}>Submit</button>
+        </div>
+        
+     </div>
+      
     </>
     
   )

@@ -11,7 +11,7 @@ function UpcomingContest() {
     const dataFetch = async () => {
       const data = await (
         await fetch(
-          "https://ultrapro1.onrender.com/livecontest/upcoming"
+          "https://ultrapro1.onrender.com/contest/contestupcoming"
         )
       ).json();
       // set state when the data received

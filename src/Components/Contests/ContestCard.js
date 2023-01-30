@@ -6,18 +6,19 @@ import './ContestCard.css';
 
 function ContestCard(props) {
     const record = props.contest;
+    console.log(record);
     const {state, dispatch} = useContext(UserContext);
     const navigate = useNavigate();
     const [contest_data, setContest_Data] = useState(false);
 
-    const date_format = record.startingtime ;
+    const date_format = record.timestart ;
 
     const contest_date = date_format && new Date(date_format.split('T')[0]).toDateString();
     const contest_time = date_format && new Date(date_format).toUTCString().split(' ')[4];
 
 
     const joinContest = async(e) => {
-        const contestid = e.contestid;
+        const contestid = e._id;
         const userid = await state.userId;
         const username = await state.name;
         if(userid == null){
@@ -25,8 +26,8 @@ function ContestCard(props) {
           navigate("/login");
           return;
         }
-        // fetch perticular contest data 
 
+        // fetch perticular contest data 
         try {
           const res = fetch(`https://ultrapro1.onrender.com/contest/contest/` + contestid , {
             method: 'GET',
@@ -53,10 +54,10 @@ function ContestCard(props) {
             else{
           
               let data = { contestid, userid, username };
-              console.log(data)
+              console.log("contest",data)
               try {
-                const res = fetch("https://ultrapro1.onrender.com/participant_status/update", {
-                  method: 'PATCH',
+                const res = fetch("https://ultrapro1.onrender.com/participant_status/createstatus", {
+                  method: 'POST',
                   credentials: "same-origin",
                   headers: {
                     'Accept': 'application/json',
@@ -67,7 +68,7 @@ function ContestCard(props) {
                 }).then((result) => {
                   return result.json();
                 }).then((data) =>{
-                  console.log(data);
+                  console.log("created user",data);
                 
                 })
               }
@@ -78,8 +79,8 @@ function ContestCard(props) {
           
               const data2 = { contestid, userid , username};
               try {
-                const res = fetch("https://ultrapro1.onrender.com/contest/update", {
-                  method: 'POST',
+                const res = fetch("https://ultrapro1.onrender.com/contest/update/participant", {
+                  method: 'PATCH',
                   credentials: "same-origin",
                   headers: {
                     'Accept': 'application/json',
@@ -118,7 +119,7 @@ function ContestCard(props) {
           </div>
           <div className='d-flex justify-content-between'>
             <p>Contest Id</p>
-            <p>{record.contestid}</p> 
+            <p>{record._id}</p> 
           </div>
           <div className='d-flex justify-content-between'>
             <p>Admin Name</p>
