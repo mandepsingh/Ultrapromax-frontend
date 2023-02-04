@@ -107,17 +107,11 @@ function EditorIDE(props) {
     console.log(true);
     const problemnumber = props.questionNumber.toString();
     const contestid = props.contestid;
-    const questionid = props.questionid;
-    const testcase1 = "2 3"
-    const testcase2 = "1 2"
-    const testcase3 = "1 2"
-    const expectedres1 = "23" 
-    const expectedres2 = "12"
-    const expectedres3 = "12"
+    const problem = props.questionid;
     const conteststarttime = props.conteststarttime;
     const language = "cpp"
    
-    let data = { contestid, questionid, userid, source_code, language_id : "54"};
+    let data = { contestid, problemnumber, userid, source_code, language_id : "54"};
     console.log("code data",data);
     try {
       const res = await fetch("https://ultrapro1.onrender.com/submit", {
@@ -144,7 +138,7 @@ function EditorIDE(props) {
                 'Content-Type': 'application/json',
               },
               credentials: "include",
-              body: JSON.stringify(submitdata)
+              // body: JSON.stringify(submitdata)
             }).then((result) => {
               return result.json();
             }).then((data) => {
@@ -154,8 +148,12 @@ function EditorIDE(props) {
                 props.setCompileTime("error");
                 props.setRunCode(false);
               }
-              else {
+              else if(data.status.description !== "Wrong Answer") {
                 props.setCompileTime(data.time);
+                props.setRunCode(false);
+              }
+              else{
+                props.setCompileTime("Wrong Answer");
                 props.setRunCode(false);
               }
             })

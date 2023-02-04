@@ -19,6 +19,7 @@ function LeaderBoard() {
     const [showCompiler, setShowCompiler] = useState(false);
     const [question, setQuestion] = useState();
     const [questionNumber, setQuestionNumber] = useState(0);
+    const [winningAmount, setWinningAmount] = useState([]);
     
     var count = 1;
     var qn = 1;
@@ -26,6 +27,27 @@ function LeaderBoard() {
 
     const map1 = new Map();
 
+    // const PrizeDistribution = async()=>{
+    //     try {
+    //         const res = await fetch(`https://ultrapro1.onrender.com/participant_status/winningamount/` + contestId, {
+    //           method: 'GET',
+    //           credentials: "same-origin",
+    //           headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json',
+    //           },
+    //           credentials: "include",
+    //         }).then((result) => {
+    //           return result.json();
+    //         }).then((data) => {
+    //           console.log("winnigamount",data);
+    //         //   setQuestion(data);
+    //         })
+    //       }
+    //       catch (err) {
+    //         console.log(err);
+    //       }
+    // }
 
     // on click solve problem
     const solveProblem = async(question) => {
@@ -62,6 +84,7 @@ function LeaderBoard() {
             .then((request => request.json()))
             .then(async(data1) => {
                 setContestData(data1);
+                console.log("contest", data1);
                 const res = await fetch( `https://ultrapro1.onrender.com/participant_status/contest/` + contestId)
                     .then((request => request.json()))
                     .then((data2) => {
@@ -84,7 +107,27 @@ function LeaderBoard() {
                             }
                         });
                     })
-                    .catch(err=>console.log(err))
+
+                
+                
+                const res2 = await fetch(`https://ultrapro1.onrender.com/participant_status/winningamount/` + contestId, {
+                    method: 'GET',
+                    credentials: "same-origin",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: "include"
+                    }).then((result) => {
+                        return result.json();
+                    }).then((data) => {
+                        console.log("winnigamount",data.winningAmount.length);
+                        setWinningAmount(data.winningAmount);
+                        // console.log(winn)
+                    })
+                
+                
+                
             })
             .catch(err=>console.log(err))
     
@@ -104,6 +147,7 @@ function LeaderBoard() {
       useEffect(() => {
         validateUrl();
         participantStatus();
+        // PrizeDistribution();
         const interval = setInterval(()=>{
             participantStatus()
         }, 30000);
@@ -151,32 +195,33 @@ function LeaderBoard() {
                 }
                 
                 <div className='col-md-8 liveboard '>
-                    <h4 className='ranking_heading'>Ranking for the contestant</h4>
+                    <h4 className='ranking_heading'>Ranking</h4>
                     <table className="table table-striped">
                         <thead>
                             <tr>
                             <th scope="col">Rank</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Score</th>
+                            <th scope="col">Total Time</th>
                             <th scope="col">Q1</th>
                             <th scope="col">Q2</th>
                             <th scope="col">Q3</th>
                             <th scope="col">Q4</th>
+                            <th scope="col">Winnings</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                participants && participants.map(record =>{
-                                    console.log(record);
+                                participants && winningAmount.length && participants.map(record =>{
                                     return(
                                         <tr key={record.userid}>
-                                            <th scope="row">{count++}</th>
+                                            <td scope="row">{count++}</td>
                                             <td>{record.username}</td>
-                                            <td>{record.totalsolvingtime}</td>
-                                            <td>{record.questionsolvetime1}</td>
-                                            <td>{record.questionsolvetime2}</td>
-                                            <td>{record.questionsolvetime3}</td>
-                                            <td>{record.questionsolvetime4}</td>
+                                            <td>{record.totalsolvingtime}s</td>
+                                            <td>{record.questionsolvetime1 === 0 ? "--" : record.questionsolvetime1 + 's'}</td>
+                                            <td>{record.questionsolvetime2 === 0 ? "--" : record.questionsolvetime2 + 's'}</td>
+                                            <td>{record.questionsolvetime3 === 0 ? "--" : record.questionsolvetime3 + 's'}</td>
+                                            <td>{record.questionsolvetime4 === 0 ? "--" : record.questionsolvetime4 + 's'}</td>
+                                            <td>₹ {(count-1 <= winningAmount.length) ? winningAmount[count-2] : 0}</td>
                                         </tr>
                                     )
                                 })
