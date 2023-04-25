@@ -89,6 +89,16 @@
     
 }
 
+.dashboardnotebutton{
+    text-align: -webkit-right;
+    font-size: 13px;
+    /* margin-top: 10px; */
+    color: red;
+}
+
+.congratulationsnote{
+    color: green;
+}
 
 .dashboard_active_btn{
     background-color: #494c74;
@@ -120,4 +130,14 @@
 
 .render_comp::-webkit-scrollbar{
     display: none;
+}
+
+.dashboard_action_btn_disabled{
+    background-color: #9f9f9f;
+    padding: 8px 15px;
+    color: white;
+    border-radius: 5px;
+    width: 150px;
+    margin: 20px 0;
+    border: none;
 }

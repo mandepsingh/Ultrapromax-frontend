@@ -8,6 +8,7 @@
     background-color: #C2C6E4;
     font-family: Quando;
     font-size: 14px;
+    height: 7vh;
 }
 
 .navbar_btn{
@@ -31,4 +32,8 @@
     border-radius: 50%;
     object-fit: cover;
     object-position: center center;
+}
+
+.top_right_navbar{
+    display: flex;
 }

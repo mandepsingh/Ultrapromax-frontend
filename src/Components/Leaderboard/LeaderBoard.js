@@ -17,7 +17,12 @@ function LeaderBoard() {
     const [participants, setParticipants] = useState();
     const [showQuestion, setShowQuestion] = useState(false);
     const [showCompiler, setShowCompiler] = useState(false);
+    
     const [question, setQuestion] = useState();
+    const [question1_solvestatus, setQuestion1_solvestatus] = useState(false);
+    const [question2_solvestatus, setQuestion2_solvestatus] = useState(false);
+    const [question3_solvestatus, setQuestion3_solvestatus] = useState(false);
+    const [question4_solvestatus, setQuestion4_solvestatus] = useState(false);
     const [questionNumber, setQuestionNumber] = useState(0);
     const [winningAmount, setWinningAmount] = useState([]);
     
@@ -53,7 +58,7 @@ function LeaderBoard() {
     const solveProblem = async(question) => {
         // navigate(`/compiler/`+ contestId + `/` + questionid)
         try {
-            const res = await fetch(`https://ultrapro1.onrender.com/problems/id/`+ question.id, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/problems/id/`+ question.id, {
               method: 'GET',
               credentials: "same-origin",
               headers: {
@@ -74,18 +79,46 @@ function LeaderBoard() {
         
         setShowCompiler(true); 
         setQuestionNumber(map1.get(question.id));
+        participantStatus()
         console.log(questionNumber);
     }
+
+    // const showSubmissions = async(question) => {
+    //     // navigate(`/compiler/`+ contestId + `/` + questionid)
+    //     try {
+    //         const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/problems/id/`+ question.id, {
+    //           method: 'GET',
+    //           credentials: "same-origin",
+    //           headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json',
+    //           },
+    //           credentials: "include",
+    //         }).then((result) => {
+    //           return result.json();
+    //         }).then((data) => {
+    //           console.log("sadfasdfasd",data);
+    //           setQuestion(data);
+    //         })
+    //       }
+    //       catch (err) {
+    //         console.log(err);
+    //       }
+        
+    //     setShowSubmission(true); 
+    //     // setQuestionNumber(map1.get(question.id));
+    //     // console.log(questionNumber);
+    // }
 
 
     // validate url 
     const validateUrl = async() =>{
-            const result = await fetch(`https://ultrapro1.onrender.com/contest/contest/` + contestId)
+            const result = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/contest/contest/` + contestId)
             .then((request => request.json()))
             .then(async(data1) => {
                 setContestData(data1);
                 console.log("contest", data1);
-                const res = await fetch( `https://ultrapro1.onrender.com/participant_status/contest/` + contestId)
+                const res = await fetch( `${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/contest/` + contestId)
                     .then((request => request.json()))
                     .then((data2) => {
                         data2.forEach(element => {
@@ -110,7 +143,7 @@ function LeaderBoard() {
 
                 
                 
-                const res2 = await fetch(`https://ultrapro1.onrender.com/participant_status/winningamount/` + contestId, {
+                const res2 = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/winningamount/` + contestId, {
                     method: 'GET',
                     credentials: "same-origin",
                     headers: {
@@ -136,27 +169,47 @@ function LeaderBoard() {
 
     // participant list update
     const participantStatus = async() =>{
-       const resultParticipant = await fetch( `https://ultrapro1.onrender.com/participant_status/paymentcheck/` + contestId +`/accept`)
+       const resultParticipant = await fetch( `${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/paymentcheck/` + contestId +`/accept`)
         .then((request => request.json()))
         .then((data) => {
             setParticipants(data);
+            if(data){
+                console.log("ppppppppppppp", data)
+                data.map((dat)=>{
+                    if(dat.userid === userid){
+                        setQuestion1_solvestatus(dat.questionsolvestatus1);
+                        setQuestion2_solvestatus(dat.questionsolvestatus2);
+                        setQuestion3_solvestatus(dat.questionsolvestatus3);
+                        setQuestion4_solvestatus(dat.questionsolvestatus4);
+                        console.log("llllllllll", dat.questionsolvestatus1)
+                    }
+                })
+            }
         })
         .catch(err=>console.log(err))
     }
 
-      useEffect(() => {
+    function convertStoMs(seconds) {
+        let minutes = Math.floor(seconds / 60);
+        let extraSeconds = seconds % 60;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        extraSeconds = extraSeconds< 10 ? "0" + extraSeconds : extraSeconds;
+        return {minutes, extraSeconds};
+    }
+
+    useEffect(() => {
         validateUrl();
         participantStatus();
         // PrizeDistribution();
         const interval = setInterval(()=>{
             participantStatus()
         }, 30000);
-      }, []);
+    }, []);
     
    
 
   return (
-    <>
+    <div className='leaderboardbody'>
     <Navbar/>
     {
         showLeaderboard && !showCompiler && 
@@ -177,9 +230,16 @@ function LeaderBoard() {
                             return(
                                 <>
                                 <div className='problem_card' >
-                                    <div className='problem_details' key={record._id}>
-                                        <p className='problem_name'>{record.name}</p>
-                                        <p className='problem_accuracy'>Accuracy: <b>50%</b></p>
+                                    <div className='problem_details' key={record.id}>
+                                        <p className='problem_name'>{record.name} {record.number}</p>
+                                        {record.number===1 && question1_solvestatus===true && <p className='problem_accuracy solved'><b>SOLVED</b></p>}
+                                        {record.number===1 &&  question1_solvestatus===false && <p className='problem_accuracy unsolved'><b>NOT SOLVED </b></p>}
+                                        {record.number===2 &&  question2_solvestatus===true && <p className='problem_accuracy solved'><b>SOLVED</b></p>}
+                                        {record.number===2 &&  question2_solvestatus===false && <p className='problem_accuracy unsolved'><b>NOT SOLVED</b></p>}
+                                        {record.number===3 &&  question3_solvestatus===true && <p className='problem_accuracy solved'><b>SOLVED</b></p>}
+                                        {record.number===3 &&  question3_solvestatus===false && <p className='problem_accuracy unsolved'><b>NOT SOLVED</b></p>}
+                                        {record.number===4 &&  question4_solvestatus===true && <p className='problem_accuracy solved'><b>SOLVED</b></p>}
+                                        {record.number===4 &&  question4_solvestatus===false && <p className='problem_accuracy unsolved'><b>NOT SOLVED</b></p>}
                                     </div>
                                     <div className='problem_difficulty_solve'>
                                         <p className='problem_difficulty'>Difficulty Level: {record.level}</p>
@@ -212,15 +272,20 @@ function LeaderBoard() {
                         <tbody>
                             {
                                 participants && winningAmount.length && participants.map(record =>{
+                                    let timer1= convertStoMs(record.questionsolvetime1);
+                                    let timer2= convertStoMs(record.questionsolvetime2);
+                                    let timer3= convertStoMs(record.questionsolvetime3);
+                                    let timer4= convertStoMs(record.questionsolvetime4);
+                                    let totaltime= convertStoMs(record.totalsolvingtime);
                                     return(
                                         <tr key={record.userid}>
                                             <td scope="row">{count++}</td>
                                             <td>{record.username}</td>
-                                            <td>{record.totalsolvingtime}s</td>
-                                            <td>{record.questionsolvetime1 === 0 ? "--" : record.questionsolvetime1 + 's'}</td>
-                                            <td>{record.questionsolvetime2 === 0 ? "--" : record.questionsolvetime2 + 's'}</td>
-                                            <td>{record.questionsolvetime3 === 0 ? "--" : record.questionsolvetime3 + 's'}</td>
-                                            <td>{record.questionsolvetime4 === 0 ? "--" : record.questionsolvetime4 + 's'}</td>
+                                            <td>{totaltime.minutes + "." + totaltime.extraSeconds + 's'}</td>
+                                            <td>{record.questionsolvetime1 === 0 ? "--" : timer1.minutes + "." + timer1.extraSeconds + 's'}</td>
+                                            <td>{record.questionsolvetime2 === 0 ? "--" : timer2.minutes + "." + timer2.extraSeconds + 's'}</td>
+                                            <td>{record.questionsolvetime3 === 0 ? "--" : timer3.minutes + "." + timer3.extraSeconds + 's'}</td>
+                                            <td>{record.questionsolvetime4 === 0 ? "--" : timer4.minutes + "." + timer4.extraSeconds + 's'}</td>
                                             <td>₹ {(count-1 <= winningAmount.length) ? winningAmount[count-2] : 0}</td>
                                         </tr>
                                     )
@@ -247,7 +312,7 @@ function LeaderBoard() {
         />
     }
     
-    </>
+    </div>
   )
 }
 

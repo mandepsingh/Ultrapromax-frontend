@@ -5,9 +5,9 @@ import './Modal.css'
 import { BsArrowRightCircle } from "react-icons/bs";
 
 
-function Modals() {
+function Modals(props) {
     const {state, dispatch} = useContext(UserContext);
-
+    // console.log(props.setCreatecontestbuttonclicked())
     const [contestname, setContestname] = useState("");
     const [level, setLevel] = useState("");
     const [amount, setAmount] = useState("");
@@ -38,10 +38,33 @@ function Modals() {
             return;
         }
         
-        let contest_details = {contestname, level, amount, username, userid, timestart, limit, mode};
+        let contest_details = {contestname, level, amount, username, userid, timestart};
         console.log(contest_details);
+        //getting the number of contest created by the user
         try {
-            const res = await fetch("https://ultrapro1.onrender.com/contest/createcontest", {
+            props.setCreatecontestbuttonclicked(true);
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/contest/contestcountbyuserid/${userid}`, {
+                method: 'GET',
+                credentials: "same-origin",
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+                credentials: "include",
+            }).then((result) => {
+                return result.json();
+            }).then((data) =>{
+                // console.log("nnnnnnnnnn,", `${username}${data.datasize+1}_Contest`)
+                contest_details["contestname"]= `${username}${data.datasize+1}_Contest`
+                console.log("...",data);
+            })
+            }
+            catch (err) {
+            console.log("error")
+            console.log(err);
+        }
+        try {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/contest/createcontest`, {
                 method : 'POST',
                 headers:{
                     'Accept':'application/json',
@@ -52,57 +75,58 @@ function Modals() {
                 return result.json();
             }).then( async (data1) =>{
                 console.log("data1..",data1);
-                if(data1){
-                    const contestid = data1.newContest._id;
-                    const userid = state.userId;
-                    const username = state.name;
+                navigate(`/dashboard/`+data1.newContest._id);
+                // if(data1){
+                //     const contestid = data1.newContest._id;
+                //     const userid = state.userId;
+                //     const username = state.name;
                 
-                    let data2 = { contestid, userid, username};
-                    try {
-                    const res = await fetch("https://ultrapro1.onrender.com/participant_status/createstatus", {
-                        method: 'POST',
-                        credentials: "same-origin",
-                        headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        },
-                        credentials: "include",
-                        body: JSON.stringify(data2)
-                    }).then((result) => {
-                        return result.json();
-                    }).then((data) =>{
+                //     let data2 = { contestid, userid, username};
+                //     try {
+                //     const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/createstatus`, {
+                //         method: 'POST',
+                //         credentials: "same-origin",
+                //         headers: {
+                //         'Accept': 'application/json',
+                //         'Content-Type': 'application/json',
+                //         },
+                //         credentials: "include",
+                //         body: JSON.stringify(data2)
+                //     }).then((result) => {
+                //         return result.json();
+                //     }).then((data) =>{
 
-                        console.log("second...",data);
-                    })
-                    }
-                    catch (err) {
-                    console.log("error")
-                    console.log(err);
-                    }
+                //         console.log("second...",data);
+                //     })
+                //     }
+                //     catch (err) {
+                //     console.log("error")
+                //     console.log(err);
+                //     }
                 
-                    const data3 = { contestid, userid , username};
-                    try {
-                    const res = await fetch("https://ultrapro1.onrender.com/contest/update/participant", {
-                        method: 'PATCH',
-                        credentials: "same-origin",
-                        headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        },
-                        credentials: "include",
-                        body: JSON.stringify(data3)
-                    }).then((datares) => {
-                        console.log("Third..",datares);
-                        navigate(`/dashboard/`+contestid);
+                //     const data3 = { contestid, userid , username};
+                //     try {
+                //     const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/contest/update/participant`, {
+                //         method: 'PATCH',
+                //         credentials: "same-origin",
+                //         headers: {
+                //         'Accept': 'application/json',
+                //         'Content-Type': 'application/json',
+                //         },
+                //         credentials: "include",
+                //         body: JSON.stringify(data3)
+                //     }).then((datares) => {
+                //         console.log("Third..",datares);
+                //         navigate(`/dashboard/`+contestid);
                 
-                    })
-                    }
-                    catch (err) {
-                    console.log("error")
-                    console.log(err);
-                    }
+                //     })
+                //     }
+                //     catch (err) {
+                //     console.log("error")
+                //     console.log(err);
+                //     }
 
-                }
+                // }
             })
         }
         catch (err) {
@@ -127,24 +151,24 @@ function Modals() {
             </div>
             <div className="modal-body">
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="contest_Name" className="form-label mb-1">Contest Name</label>
+                    {/* <div className="mb-3">
+                        <label htmlFor="contest_Name" className="form-label mb-1"><b>Contest Name</b></label>
                         <input type="text" className="form-control form-control" id="contest_Name" value={contestname} onChange = {(e)=>{setContestname(e.target.value)}} placeholder="" required/>
-                    </div>
-                    <div className="mb-3">
+                    </div> */}
+                    {/* <div className="mb-3">
                         <label htmlFor="noofparticipants" className="form-label mb-1">Number of participants</label>
                         <input type="number" className="form-control form-control" id="noofparticipants" onChange = {(e)=>{setLimit(e.target.value)}} placeholder=""/>
-                    </div>
-                    <div className="mb-3">
+                    </div> */}
+                    {/* <div className="mb-3">
                         <label htmlFor="mode" className="form-label mb-1">Mode</label>
                         <select className="form-select " value={mode} onChange = {(e)=>{setMode(e.target.value)}} >
                             <option defaultValue>Select Mode</option>
                             <option value="practice">Practice</option>
                             <option value="fight">Fight</option>
                         </select>
-                    </div>
+                    </div> */}
                     <div className="mb-3">
-                        <label htmlFor="difficulty_level" className="form-label mb-1">Difficulty Level</label>
+                        <label htmlFor="difficulty_level" className="form-label mb-1"><b>Difficulty Level</b></label>
                         <select className="form-select" value={level} onChange = {(e)=>{setLevel(e.target.value)}} >
                             <option defaultValue>Select Dificulty</option>
                             <option value="1">1</option>
@@ -155,7 +179,7 @@ function Modals() {
                         </select>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="contest_amount" className="form-label mb-1">Contest Amount</label>                        
+                        <label htmlFor="contest_amount" className="form-label mb-1"><b>Contest Amount</b></label>                        
                         {/* <input type="number" className="form-control form-control" id="contest_amount" value={amount} onChange = {(e)=>{setAmount(e.target.value)}} placeholder="Minimum amount should be 10"/> */}
                         <select className="form-select form-select" value={amount} onChange = {(e)=>{setAmount(e.target.value)}} >
                             <option defaultValue>Select Amount</option>
@@ -174,7 +198,7 @@ function Modals() {
                     </div>
                     
                     <div className="mb-3">
-                        <label htmlFor="time_start" className="form-label mb-1">Time to start</label>
+                        <label htmlFor="time_start" className="form-label mb-1"><b>Time to start</b></label>
                         <input type="datetime-local" className="form-control form-control" id="time_start" onChange = {(e)=>{setTime(e.target.value)}} placeholder="Time"/>
                     </div>
                     <button type="submit" className="btn btn-success submit_create_contest" data-bs-dismiss="modal" >

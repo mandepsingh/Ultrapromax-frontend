@@ -10,7 +10,8 @@ function ForgotPassword() {
         e.preventDefault();
         let data = { email};
         try {
-        const res = fetch("https://ultrapro1.onrender.com/user/password-forgot", {
+        console.log(process.env.BACKEND_HOST);
+        const res = fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/user/password-forgot`, {
             method: 'POST',
             credentials: "same-origin",
             headers: {

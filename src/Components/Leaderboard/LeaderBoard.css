@@ -55,3 +55,16 @@
 .problem_solve{
     margin: 10px;
 }
+
+.solved{
+    color: #248640;
+}
+
+.unsolved{
+    color: red;
+}
+
+::-webkit-scrollbar {
+    /* display: none; */
+}
+

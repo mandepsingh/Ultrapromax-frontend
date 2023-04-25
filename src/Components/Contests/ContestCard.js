@@ -26,86 +26,55 @@ function ContestCard(props) {
           navigate("/login");
           return;
         }
+        else{
+          navigate(`/dashboard/`+contestid);
+        }
 
         // fetch perticular contest data 
-        try {
-          const res = fetch(`https://ultrapro1.onrender.com/contest/contest/` + contestid , {
-            method: 'GET',
-            credentials: "same-origin",
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            credentials: "include",
-          }).then((result) => {
-            return result.json();
-          }).then((data) =>{
-            setContest_Data(data);
-            console.log("contest data setting ",data);
-            let alreadyExist = false;
-            data.participants.forEach(element => {
-              if(element.userid === userid){
-                alreadyExist = true;
-              }
-            });
-            if(alreadyExist === true){
-              navigate(`/dashboard/`+contestid);
-            }
-            else{
-          
-              let data = { contestid, userid, username };
-              console.log("contest",data)
-              try {
-                const res = fetch("https://ultrapro1.onrender.com/participant_status/createstatus", {
-                  method: 'POST',
-                  credentials: "same-origin",
-                  headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                  },
-                  credentials: "include",
-                  body: JSON.stringify(data)
-                }).then((result) => {
-                  return result.json();
-                }).then((data) =>{
-                  console.log("created user",data);
-                
-                })
-              }
-              catch (err) {
-                console.log("error")
-                console.log(err);
-              }
-          
-              const data2 = { contestid, userid , username};
-              try {
-                const res = fetch("https://ultrapro1.onrender.com/contest/update/participant", {
-                  method: 'PATCH',
-                  credentials: "same-origin",
-                  headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                  },
-                  credentials: "include",
-                  body: JSON.stringify(data2)
-                }).then((datares) => {
-                  console.log(datares);
-                  navigate(`/dashboard/`+contestid);
-          
-                })
-              }
-              catch (err) {
-                console.log("error")
-                console.log(err);
-              }
+        // try {
+        //   const res = fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/contest/contest/` + contestid , {
+        //     method: 'GET',
+        //     credentials: "same-origin",
+        //     headers: {
+        //       'Accept': 'application/json',
+        //       'Content-Type': 'application/json',
+        //     },
+        //     credentials: "include",
+        //   }).then((result) => {
+        //     return result.json();
+        //   }).then((data) =>{
+        //     setContest_Data(data);
+        //     console.log("contest data setting ",data);
+            
+        //     let data1 = { contestid, userid, username };
+        //     console.log("contest",data1)
+            // try {
+            //   const res = fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/createstatus`, {
+            //     method: 'POST',
+            //     credentials: "same-origin",
+            //     headers: {
+            //       'Accept': 'application/json',
+            //       'Content-Type': 'application/json',
+            //     },
+            //     credentials: "include",
+            //     body: JSON.stringify(data1)
+            //   }).then((result) => {
+            //     return result.json();
+            //   }).then((data2) =>{
+            //     console.log("created user",data2);
+            //   })
+            // }
+            // catch (err) {
+            //   console.log("error")
+            //   console.log(err);
+            // }
     
-            } 
-          })
-        }
-        catch (err) {
-          console.log("error")
-          console.log(err);
-        }
+        //   })
+        // }
+        // catch (err) {
+        //   console.log("error")
+        //   console.log(err);
+        // }
       
       }
 

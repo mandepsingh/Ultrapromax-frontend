@@ -13,7 +13,7 @@ function Logout() {
 
 
     useEffect(() => {
-        fetch("https://ultrapro1.onrender.com/user/signout",{
+        fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/user/signout`,{
             method : 'GET',
             headers:{
                 'Accept':'application/json',

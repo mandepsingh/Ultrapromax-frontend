@@ -1,0 +1,168 @@
+.adminpannel{
+    /* background-color: #80808045; */
+    width: 85%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.topnavbar{
+    display: flex;
+    justify-content: space-around;
+}
+.searchbar{
+    width: 51%;
+}
+.internalnavbar{
+
+}
+.admintable{
+  /* width: 50vw; */
+  height: 610px;
+  /* padding: 2rem; */
+  /* background-color: rgb(214, 214, 247); */
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.adminpannelcontainer{
+    text-align: -webkit-center;
+}
+.navbar_btn_category{
+    flex-wrap: nowrap;
+    place-content: center;
+}
+.adminpannelcontainer{
+    margin-top: 30px;
+}
+.contestdata{
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: 700;
+}
+.createnewuser{
+    border: none;
+    width: 175px;
+    height: 51px;
+    margin-top: 7px;
+    border-radius: 10px;
+}
+.contesinnernavbarbutton{
+    border: none;
+}
+/* textarea[type=text] {
+    width: 34%;
+    height: 202px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+ */
+
+
+
+
+.submit_create_contest{
+    width: 80%;
+    margin: 10px 10%;
+    height: 40px;
+   background-color: rgb(148, 74, 216);
+   --bs-btn-hover-bg: rgb(89, 78, 201);
+}
+
+.modal-body{
+    font-size: 18px;
+    padding: 30px;
+    text-align: left;
+}
+
+.contest_btn{
+    padding: 10px;
+    border: none;
+    background-color: #6972C5;
+    color: white;
+    border-radius: 10px;
+    font-weight: 400;
+    margin: 50px auto;
+    margin-bottom: 30px;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+* {
+    box-sizing: border-box;
+  }
+  
+  /* input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  } */
+  
+  label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+  }
+  
+  input[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+  .containerupdatequestion {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  
+  .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+  }
+  
+  .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+  }
+  
+  /* Clear floats after the columns */
+  .rowupdatequestion::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .rowupdatequestion{
+    width: 51%;
+  }
+
+  .rowupdatequestioninput{
+    width: 50vw;
+  }
+
+  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+      width: 100%;
+      margin-top: 0;
+    }
+    .contest_btn{
+      font-size: 12px;
+    }
+  }

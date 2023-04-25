@@ -13,22 +13,33 @@ function Navbar() {
     console.log("object");
     setToggleProfile(!toggleProfile);
   }
+  
+  // function hideProfile(){
+  //   console.log("object");
+  //   setToggleProfile(false);
+  // }
 
   const RenderMenu = () =>{
+      
       if(state.name){
         return(
           <>
-              <li className="nav-item">
-                <NavLink className="nav-link mx-1" to="/contests">Contests</NavLink>
+
+              <li className="nav-item top_right_navbar">
+                <NavLink className="nav-link mx-1" to="/contests">CONTESTS</NavLink>
               </li> 
               <li className="nav-item">
-                <NavLink className="nav-link mx-1"  onClick={showProfile}>
+              {/* to={url} */}
+                <NavLink className="nav-link mx-1" onClick={showProfile}>
+                  
                   
                   {/* {state.name.charAt(0).toUpperCase() + state.name.slice(1)} */}
                   <img className='navBar_profile_img' src='https://cdn.pixabay.com/photo/2014/04/12/14/59/portrait-322470_960_720.jpg'/>
 
                 </NavLink>
+
                 { toggleProfile && <div className='showProfile'><Profile/></div> }
+
               </li>
               {/* <li className="nav-item">
                 <NavLink className="nav-link mx-1 navbar_btn text-black" to="/logout">Logout</NavLink>

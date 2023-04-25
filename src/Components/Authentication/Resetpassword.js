@@ -20,7 +20,7 @@ function ResetPassword() {
         }
         let data = {password};
         try {
-        const res = fetch(`https://ultrapro1.onrender.com/user/password-reset?token=` + token, {
+        const res = fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/user/password-reset?token=` + token, {
             method: 'POST',
             credentials: "same-origin",
             headers: {

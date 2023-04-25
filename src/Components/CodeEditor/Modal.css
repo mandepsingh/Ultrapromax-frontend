@@ -1,0 +1,29 @@
+.submit_create_contest{
+    width: 80%;
+    margin: 10px 10%;
+    height: 40px;
+   background-color: rgb(148, 74, 216);
+   --bs-btn-hover-bg: rgb(89, 78, 201);
+}
+
+.modal-body{
+    font-size: 18px;
+    padding: 30px;
+    text-align: left;
+}
+
+.contest_btnforcode{
+        /* padding: 10px; */
+        border: none;
+        background-color: #6972C5;
+        color: white;
+        font-size: initial;
+        border-radius: 10px;
+        /* font-weight: 400; */
+        /* margin-bottom: 30px; */
+        text-decoration: none;
+}
+
+.submission_code{
+    margin-top: 11px;
+}

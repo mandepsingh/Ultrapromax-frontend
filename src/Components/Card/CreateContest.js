@@ -22,10 +22,10 @@ function CreateContest({onClick}) {
         e.preventDefault();
         const username = state.name;
         const userid = state.userId;
-        let contest_details = {contestname, contestnumber, level, amount, username, userid, timestart};
+        let contest_details = {contestname, level, amount, username, userid, timestart};
         // console.log(data)
         try {
-            const res = await fetch("https://ultrapro1.onrender.com/contest/createcontest", {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/contest/createcontest`, {
                 method : 'POST',
                 headers:{
                     'Accept':'application/json',
@@ -41,9 +41,9 @@ function CreateContest({onClick}) {
                     const userid = state.userId;
                     const username = state.name;
                 
-                    let data2 = { contestid, userid, username };
+                    let data2 = { contestid, userid, username, amount };
                     try {
-                    const res = await fetch("https://ultrapro1.onrender.com/participant_status/create", {
+                    const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/createstatus`, { //this is not in use
                         method: 'POST',
                         credentials: "same-origin",
                         headers: {
@@ -64,27 +64,27 @@ function CreateContest({onClick}) {
                     console.log(err);
                     }
                 
-                    const data3 = { contestid, userid , username};
-                    try {
-                    const res = await fetch("https://ultrapro1.onrender.com/contest/update", {
-                        method: 'POST',
-                        credentials: "same-origin",
-                        headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        },
-                        credentials: "include",
-                        body: JSON.stringify(data3)
-                    }).then((datares) => {
-                        console.log("Third..",datares);
-                        navigate(`/dashboard/`+contestid);
+                    // const data3 = { contestid, userid , username};
+                    // try {
+                    // const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/contest/update`, {
+                    //     method: 'POST',
+                    //     credentials: "same-origin",
+                    //     headers: {
+                    //     'Accept': 'application/json',
+                    //     'Content-Type': 'application/json',
+                    //     },
+                    //     credentials: "include",
+                    //     body: JSON.stringify(data3)
+                    // }).then((datares) => {
+                    //     console.log("Third..",datares);
+                    //     navigate(`/dashboard/`+contestid);
                 
-                    })
-                    }
-                    catch (err) {
-                    console.log("error")
-                    console.log(err);
-                    }
+                    // })
+                    // }
+                    // catch (err) {
+                    // console.log("error")
+                    // console.log(err);
+                    // }
 
                 }
             })

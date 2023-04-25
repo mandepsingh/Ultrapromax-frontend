@@ -36,6 +36,7 @@
     background-color: white;
     box-shadow: 2px 3px 10px #c6bebe;
     padding: 30px;
+    /* height: 70vh; */
 }
 
 .contest_info-buttons{
@@ -59,4 +60,15 @@
 .active_btn{
     color: rgb(255, 255, 255);
     background-color: #9ea1c0;
+}
+/* 
+body{
+    overflow: hidden;
+} */
+
+
+@media screen and (max-width: 780px) {
+    /* .contest_info{
+        height: 650px;
+    } */
 }

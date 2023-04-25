@@ -1,0 +1,72 @@
+
+.userprofile{
+    text-align: -webkit-center;
+}
+
+.userprofile_dashboard{
+    text-align: center;
+}
+
+.userprofile_top{
+    display: flex;
+    justify-content: center;
+}
+
+.userprofile_profile{
+    width: 35vw;
+    background-color: red;
+    height: 26vh;
+    margin: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.userprofile_profile> h4{
+    text-align: center;
+}
+    
+
+.userprofile_problemsolved{
+
+}
+
+.userprofile_participation{
+    height: 40vh;
+    background-color: rgb(229, 231, 229);
+    width: 70vw;
+    margin: 10px;
+}
+
+.userprofile_contestdetails{
+    height: 40vh;
+    /* background-color: green; */
+    width: 70vw;
+    margin: 10px;
+}
+
+.userprofile_delete{
+
+}
+
+.userprofile_profile_left{
+    background-color: gray;
+    width: 40%;
+}
+
+.userprofile_profile_right{
+    background-color: blue;
+    width: 60%;
+}   
+
+.userprofile_profile_top{
+
+}
+
+.navBar_profile_img{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center center;
+}

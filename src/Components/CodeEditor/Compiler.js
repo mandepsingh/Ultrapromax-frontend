@@ -5,18 +5,24 @@ import './Compiler.css'
 import Loader from '../Loader/Loader';
 import ReverseTimer from '../Timer/ReverseTimer';
 import { BsCaretLeftFill } from "react-icons/bs";
+import ModalforCode from "./ModalforCode";
 
 
 function Compiler(props) {
-
+    console.log("compilerporps", props)
     const contestId = props.contestid;
     const question = props.question;
     // const questionid = props.question.id;
     const [showtestcase, setShowtestcase] = useState(true);
+    const [compileStatuss, setCompileStatuss] = useState("");
     const [compileTime, setCompileTime] = useState();
     const [showleft, setShowLeft] = useState("description");
+    const [showright, setShowRight] = useState("description");
     const [runcode, setRunCode] = useState(false);
+    const [testcaseresult, setTestcaseresult] = useState();
     const [showConsoleTab, setShowConsoleTab] = useState(false);
+    const [showSubmission, setShowSubmission] = useState();
+    
 
     
 
@@ -28,12 +34,35 @@ function Compiler(props) {
       if(runcode) setShowtestcase(false)
     }
 
-    function showTab(arg){
+    async function showTab(arg){
+      if(arg==="submissions"){
+        console.log(arg, props)
+        try {
+          const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/submit/contestanduser/${contestId}/${props.userid}/${props.questionNumber}`, {
+            method: 'GET',
+            credentials: "same-origin",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            credentials: "include",
+          }).then((result) => {
+            return result.json();
+          }).then((data) => {
+            console.log("subissionReault",data);
+            setShowSubmission(data);
+          })
+        }
+        catch (err) {
+          console.log(err);
+        }
+      }
       setShowLeft(arg);
+      
     }
 
-    function showConsoleClass(){
-
+    function showCode(){
+      console.log("herer")
     }
    
     function setClass(e){
@@ -97,9 +126,23 @@ function Compiler(props) {
                       </div> 
                     }
                     {
-                      showleft === "submissions" &&
+                      showleft === "submissions" && showSubmission &&
                       <div className='show_submission'>
-                        Previous Submissions
+                      
+                        {showSubmission.map(dat => (  
+                
+                            <>
+                              <p className='submission_text'>language: {dat.language}</p>
+                              <p className='submission_text'>Status : {dat.problemstatus}</p>
+                              <p className='submission_text'>_id: {dat._id}</p>
+                              <ModalforCode code= {dat.code}/>
+                              <p>-----------------------------------------------</p>
+                              
+                              </>
+
+                    
+                        ))}  
+            
                       </div>
                     }
             </div>
@@ -123,16 +166,18 @@ function Compiler(props) {
               <div className='editor_body_container'>
                 <div className='editor-ide'>
                   <Editor 
-                    setCompileTime = {setCompileTime} 
+                    setCompileTime = {setCompileTime}
                     setRunCode = {setRunCode}
-                    contestid = {contestId}
-                    questionNumber = {props.questionNumber}
-                    questionid = {question.questionid}
-                    userid = {props.userid}
-                    conteststarttime = {props.time}
+                    contestids = {contestId}
+                    questionNumbers = {props.questionNumber}
+                    questionids = {question.questionid}
+                    userids = {props.userid}
+                    conteststarttimes = {props.time}
                     showConsoleTab = {showConsoleTab}
                     setShowConsoleTab = {setShowConsoleTab}
-                    testcase = {question.testcase}
+                    testcases = {question.testcase}
+                    settestcaseresult= {setTestcaseresult}
+                    setcompileStatuss= {setCompileStatuss}
                   />
                 </div>
               </div>
@@ -153,12 +198,12 @@ function Compiler(props) {
                 {
                   showtestcase ?
                   <div>
-                    <div className='accordian_header mx-3 my-2'>3 Test Cases</div>
+                    <div className='accordian_header mx-3 my-2'>Test Case</div>
                     <div className="accordion accordion-flush" id="accordionFlushExample">
                         <div className="accordion-item testcases">
                           <h2 className="accordion-header" id="flush-headingOne">
                             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                              Testcase 1 
+                              Testcase
                             </button>
                           </h2>
                           <div id="flush-collapseOne" className="accordion-collapse collapse bg-light bg-gradient" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -205,9 +250,30 @@ function Compiler(props) {
                   </div>  :
                   <div>
                     { 
-                      runcode ? <div className='mx-3 my-3'><Loader/></div> : 
-                      compileTime ? compileTime === "error" ? <p className='mx-3 my-3'>Compilation Error</p> : <p className='mx-3 my-3'>Compilation Successfull in {compileTime*1000} ms</p> : 
-                      <div className='mx-3 my-3'>Click on Run or Submit to see result.</div>
+                      runcode ? <div className='mx-3 my-3'><Loader/>YOUR CODE IS COMPILING..........</div>: 
+                        (compileStatuss === "Compilation Error" ?  
+                          <>
+                          <p style={{color:'red'}}  className='mx-3 my-3'>Compilation Error</p>
+                          <p className='mx-3 my-3'>Please check your code for error and try again!</p>
+                          </>: 
+                            (compileStatuss=== "Run Accepted" ? 
+                              <>
+                              <p className='mx-3 my-3'>Compilation Successfull in {compileTime*1000} ms</p>
+                              <p className='mx-3 my-3'>Input: {question.testcase}</p>
+                              <p className='mx-3 my-3'>Output: {testcaseresult}</p>
+                              <p className='mx-3 my-3'>Compilation Time: {compileTime}s</p>
+                              </>:
+                              compileStatuss=== "Wrong Answer" ? 
+                              <>
+                              <p style={{color:'red'}} className='mx-3 my-3'>{testcaseresult}</p>
+                              <p className='mx-3 my-3'>Please check your code for error and try again!</p>
+                              </>: 
+                                <>
+                                <p style={{color:'green'}} className='mx-3 my-3'>Successfull Submitted!</p>
+                                <p className='mx-3 my-3'>Compilation Time: {compileTime}s</p>
+                                </>
+                            )
+                        )
                     }
                   </div>
                 }

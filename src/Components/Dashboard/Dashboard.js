@@ -18,7 +18,7 @@ function Dashboard() {
     const params = useParams();
     const contestId = params.id;
     const userid = state.userId;
-    const [contestdata, setContestData] = useState();
+    const username= state.name;
     const [request, setRequestData] = useState();
     const [askStatus, setAskStatus] = useState(false);
     const [participants, setParticipants] = useState();
@@ -29,6 +29,7 @@ function Dashboard() {
     const [activeClass, setActiveClass] = useState("participants");
     const [activeComp, setActiveComp] = useState("participants");
     const [progress, setProgress] = useState(0);
+    const [contestData, setContestData] = useState();
 
     let btn_classes = ["dashboard_comp"]
     const navigate = useNavigate();
@@ -36,20 +37,23 @@ function Dashboard() {
    
     // ask for permission to enter contest
     const askPermision = async (e) => {
-        setAskStatus(true);
+        setAskStatus("waiting");
+        // console.log("ccccccccc",contestData)
+        const post_data= {contestid: contestId, userid, username: username, amount: contestData.amount};
         try {
-            const res = await fetch(`https://ultrapro1.onrender.com/participant_status/permission/`+ contestId + `/` + userid + `/waiting`, {
-              method: 'PATCH',
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/createstatus/`, {
+              method: 'POST',
               credentials: "same-origin",
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               },
               credentials: "include",
+              body: JSON.stringify(post_data)
             }).then((result) => {
               return result.json();
             }).then((data) => {
-              console.log("ask.. ", data);
+              // console.log("ask.. ", data);
             })
           }
           catch (err) {
@@ -59,8 +63,11 @@ function Dashboard() {
 
     // do the payment process
     const doPayment = async (e) => {
+      const post_data= {contestid: contestId, userid, username: username, paymentamount: contestData.amount};
+      console.log("ccccccccc",contestData)
       try {
-          const res = await fetch(`https://ultrapro1.onrender.com/participant_status/payment/`+ contestId + `/` + userid + `/accept`, {
+          //do the payment by using payment gateway then update participant status.
+          const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/payment/`+ contestId + `/` + userid + `/accept`, {
             method: 'PATCH',
             credentials: "same-origin",
             headers: {
@@ -68,6 +75,7 @@ function Dashboard() {
               'Content-Type': 'application/json',
             },
             credentials: "include",
+            body: JSON.stringify(post_data),
           }).then((result) => {
             return result.json();
           }).then((data) => {
@@ -81,8 +89,8 @@ function Dashboard() {
 
       // Enter into the contest
       function enterContest(){
-        clearInterval(interval2);
-        fetch(`https://ultrapro1.onrender.com/participant_status/enterancestatus/`+ contestId + `/` + userid,{
+        // clearInterval(interval2);
+        fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/enterancestatus/`+ contestId + `/` + userid,{
               method : 'GET',
               headers:{
                   'Accept':'application/json',
@@ -91,7 +99,8 @@ function Dashboard() {
             }).then((result) => {
               return result.json();
             }).then((data) => {
-              console.log("Enter Contest", data)
+              // console.log("Enter Contest", data)
+              clearInterval(interval2);
               if(data.entercontest === 'false'){
                 navigate("/home")
               }
@@ -99,7 +108,7 @@ function Dashboard() {
                 window.location.replace(`/leaderboard/` + contestId);
               }
             }).catch((err)=>{
-                  console.log(err);   
+                  // console.log(err);   
             });
       }
           
@@ -107,15 +116,22 @@ function Dashboard() {
     // const navigate = useNavigate();
 
     const dataFetch = async () => {
-        const result = await (
-          await fetch(
-            `https://ultrapro1.onrender.com/contest/contest/` + contestId
-          )
-        ).json();
+        const result = await fetch(
+            `${process.env.REACT_APP_BACKEND_LOCAL_HOST}/contest/contest/` + contestId
+          ).then((data1)=> {
+            return data1.json();
+          
+        }).then(async (res)=>{
+          console.log("setContestData", res)
+          await setContestData(res);
+          
+          // console.log("dataarrraaa",res );
+          // console.log("afrw",contestData)
+        });
     
         // set state when the data received
-        setContestData(result);
-        console.log("dataaaaa",result)
+        
+        // console.log("dataaaaa",result)
       };
 
 
@@ -124,14 +140,14 @@ function Dashboard() {
       const requestFetch = async () => {
         const res = await (
           await fetch(
-            `https://ultrapro1.onrender.com/participant_status/permissioncheck/` + contestId + `/waiting`
+            `${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/permissioncheck/` + contestId + `/waiting`
           )
         ).json();
     
         // set state when the data received
         if(request != res){
           setRequestData(res);
-          console.log("res",res)
+          // console.log("res",res)
         }
         
       };
@@ -142,15 +158,15 @@ function Dashboard() {
       const fetchparticipant = async () => {
         const res = await (
           await fetch(
-            `https://ultrapro1.onrender.com/participant_status/contest/` + contestId
+            `${process.env.REACT_APP_BACKEND_LOCAL_HOST}/participant_status/contest/` + contestId
           )
         ).json();
         
         // set state when the data received
         console.log("participants",res);
+        setAskStatus(true)
         res.forEach(element => {
           if(element.userid == userid){
-            
             setUserDetails(element);
             if(element.permissionstatus === "waiting"){
               setProgress(1);
@@ -182,24 +198,6 @@ function Dashboard() {
         else return "";
       }
 
-      function ContestStatus(){
-        const data = {contestid : contestId, conteststatus:"running"};
-        try {
-          const res = fetch(`https://ultrapro1.onrender.com/contest/update/status`, {
-            method: 'PATCH',
-            credentials: "same-origin",
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            credentials: "include",
-            body: JSON.stringify(data)
-          })
-        }
-        catch (err) {
-          console.log(err);
-        }
-      }
 
       useEffect(() => {
         dataFetch();
@@ -209,38 +207,23 @@ function Dashboard() {
 
 
         // second request to refresh data page load
-        interval2 = setInterval(()=>{
-          try {
-            const res = fetch(`https://ultrapro1.onrender.com/contest/contest/` + contestId, {
-              method: 'GET',
-              credentials: "same-origin",
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-              credentials: "include",
-            }).then((result) => {
-              return result.json();
-            }).then((data) => {
-              if(data && data.creatorid === state.userId){
-                // console.log(" admin")
-                requestFetch();
-              }
-            })
-          }
-          catch (err) {
-            console.log(err);
-          }
+        let interval2 = setInterval(()=>{
+          dataFetch();
+          console.log("contest", contestData)
+          // if(contestData && contestData.creatorid === state.userId){
+              // console.log(" admin")
+              requestFetch();
+          // }
+          
           setLiveTime(Date.now());
           fetchparticipant();
-        }, 10000);
+        }, 12000);
 
       }, []);
 
       useEffect(() => {
         if(!triggerContest){
-          console.log("object");
-          ContestStatus();
+          // console.log("object");
         }
       },[triggerContest]);
 
@@ -250,20 +233,24 @@ function Dashboard() {
     <Navbar></Navbar>
     <div className="container">
       <div className='dashboard_header'>
-        <h2 className="dashboard_heading">{contestdata && contestdata.contestname}</h2>
+        <h2 className="dashboard_heading">{contestData && contestData.contestname}</h2>
         <div className='dashboard_actions'>
-            {
+            {/* {
               userDetails && userDetails.permissionstatus === "none" && triggerContest && <button className="dashboard_action_btn" disabled = {askStatus} onClick={askPermision}>Ask to Register</button> 
+            } */}
+            {/* {console.log("userdata",userDetails) } */}
+            {
+              askStatus===true && userDetails== undefined && <button className="dashboard_action_btn" onClick={askPermision}>Ask for Permission</button> 
             }
             {
-              userDetails && userDetails.permissionstatus === "waiting" && <button className="dashboard_action_btn"  disabled = {true} onClick={askPermision}>Ask to Register</button> 
+              userDetails && userDetails.permissionstatus === "waiting" && <button className="dashboard_action_btn_disabled" disabled={true}>Waiting for Permission</button> 
             }
             {
-              userDetails && userDetails.permissionstatus === "accept" && userDetails.paymentstatus === "none" && <button className="dashboard_action_btn" disabled = {!triggerContest} onClick={doPayment}>Payment</button> 
+              userDetails && userDetails.permissionstatus === "accept" && userDetails.paymentstatus === "none" && (!triggerContest ? <button className="dashboard_action_btn_disabled" disabled = {!triggerContest} onClick={doPayment}>Payment</button>: <button className="dashboard_action_btn" disabled = {!triggerContest} onClick={doPayment}>Payment</button> )
             }
 
             {
-              userDetails && userDetails.permissionstatus === "accept" && userDetails.paymentstatus === "accept" && <button className=" dashboard_action_btn" disabled = {triggerContest} onClick={enterContest}>Enter Contest</button> 
+              userDetails && userDetails.permissionstatus === "accept" && userDetails.paymentstatus === "accept" && (triggerContest ? (<button className=" dashboard_action_btn_disabled" disabled={triggerContest} onClick={enterContest}>Enter Contest</button> ):<button className=" dashboard_action_btn" disabled={triggerContest} onClick={enterContest}>Enter Contest</button> )
             }
             {/* {
                 contestdata && new Date(contestdata.timestart) - liveTime < 0 && <button className="btn btn-success permission_btn" disabled = {triggerContest} onClick={askPermision}>Enter Contest</button> 
@@ -278,12 +265,34 @@ function Dashboard() {
           
         </div> */}
         {
-          contestdata && <div className="contest_timer"><Timer time={contestdata.timestart} contest = {contestId} setTriggerContest={setTriggerContest}/></div>
+          askStatus===true && userDetails== undefined && 
+          <div className='dashboardnotebutton'>
+            <p>Click Ask Persmission buttion to enter into contest.</p>
+          </div>
+        }
+        {
+          userDetails && userDetails.permissionstatus === "accept" && userDetails.paymentstatus === "none" && (!triggerContest ?
+            <div className='dashboardnotebutton'><p>You Can't Enter into contest because contest has started.</p></div>
+          :
+          <div className='dashboardnotebutton'>
+            <p className='congratulationsnote' >Congratulations your request is Accepted!</p>
+            <p>Make an Online Payment to participate in contest.</p>
+          </div>)
+        }
+        {
+          userDetails && userDetails.permissionstatus === "accept" && userDetails.paymentstatus === "accept" && 
+          <div className='dashboardnotebutton'>
+            <p>Enter Contest button is Enable when contest time starts.</p>
+          </div>
+        }
+
+        {
+          contestData && <div className="contest_timer"><Timer time={contestData.timestart} contest = {contestId} setTriggerContest={setTriggerContest}/></div>
         }
         <div className='d-flex justify-content-center'>
             <button className={`dashboard_comp ` + toggleClass("participants")}  onClick={()=>changeClass("participants")}>Participants</button>
             {
-            contestdata && contestdata.creatorid === state.userId && 
+            contestData && contestData.creatorid === state.userId && 
             <button className={`dashboard_comp ` + toggleClass("request")} onClick={()=>changeClass("request")}>
               Requests{ request && request.length >= 1 && <span className=''><GoPrimitiveDot style={{marginBottom:"12px"}}/></span> }
             </button> 
@@ -298,6 +307,9 @@ function Dashboard() {
         </div>
         
       {/* Component to render */}
+        <div className='homepagenote'>
+          <p>Note: Data is automatically updated in 10 seconds.</p>
+        </div>
 
         <div className='render_comp'>
           {

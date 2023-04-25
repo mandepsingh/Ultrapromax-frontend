@@ -1,8 +1,12 @@
+/* body{
+    overflow: scroll;
+} */
+
 .home_body{
     background-color: #F6F9FF;
 }
 .cb_header{
-    height: 90vh;
+    height: 750px;
     background-color: #C2C6E4;
     clip-path: polygon(
         0 0,
@@ -149,7 +153,7 @@
 }
 
 .create_contest_cards{
-    height: 230px;
+    /* height: 230px; */
     margin: 15px;
     border-radius: 15px;
 }
@@ -171,9 +175,9 @@
     background-color:  white;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
-    height: 110px;
+    height: 90px;
     text-align: center;
-    padding: 10px;
+    /* padding: 10px; */
     font-size: 13px;
 }
 
@@ -345,8 +349,8 @@
     /* transform: rotateX(3deg) rotateZ(3deg) rotateY(0deg); */
     transform-style: preserve-3d;
     border-radius: 10px;
-    box-shadow: -1px 0 28px 0 rgba(34, 33, 81, 0.01),
-      28px 28px 28px 0 rgba(34, 33, 81, 0.25);
+    /* box-shadow: -1px 0 28px 0 rgba(34, 33, 81, 0.01),
+      28px 28px 28px 0 rgba(34, 33, 81, 0.25); */
     transition: 0.4s ease-in-out transform, 0.4s ease-in-out box-shadow;
 }
 
@@ -421,6 +425,22 @@
     /* padding-bottom: 20px; */
 }
 
+.accordion-body{
+    text-align: left;
+}
+
+.homepagenote{
+    text-align: -webkit-center;
+    font-size: 13px;
+    margin-top: 10px;
+    color: red;
+}
+
+.createcontestloader{
+    text-align: -webkit-center;
+    margin-top: 38vh;
+}
+
 @media screen and (max-width: 1000px) {
     .mission_scrolling{
         display: none;
@@ -435,7 +455,7 @@
     }
 }
 
-@media screen and (min-width: 580px) {
+@media screen and (max-width: 580px) {
    
     /*center the heading and lines*/
 
@@ -447,7 +467,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        font-size: 18px;
+        font-size: 12px;
     }
 
 
@@ -474,6 +494,40 @@
     .heading_top_coder:after {
         margin: 0 0 0 20px;
     }
-
+    .quote{
+        font-size: 15px;
+    }
+    .quote_author{
+        font-size: 10px;
+    }
+    .cb_breif{
+        margin-top: 10px;
+        font-size: 15px;
+        display: inline;
+    }
+    .explore_btn{
+        width: 85px;
+        font-size: 13px;
+    }
+    .cb_header{
+        height: 443px;
+    }
+    .rater_review{
+        font-size: 14px;
+    }
+    .join_contest{
+        font-size: 12px;
+    }
+    .faq_container{
+        font-size: 13px;
+        margin: 1px;
+    }
+    .accordion-button{
+        font-size: 13px;
+    }
 }
+
+/* @media screen and (min-width: 580px) {
+    
+} */
 

@@ -6,21 +6,32 @@ import { IoIosArrowDown } from "react-icons/io";
 import { MdPlayArrow } from "react-icons/md";
 
 
-function EditorIDE(props) {
+function EditorIDE({setCompileTime,
+  setRunCode ,
+  contestids ,
+  questionNumbers ,
+  questionids,
+  userids ,
+  conteststarttimes,
+  showConsoleTab,
+  setShowConsoleTab ,
+  testcases,
+  settestcaseresult,
+  setcompileStatuss}) {
 
-  console.log("qn", props.questionNumber);
+  console.log("qn", questionids, conteststarttimes);
 
 
   const [source_code, setSourceCode] = useState("// Write Code here...");
   const [consoleLeft, setconsoleLeft] = useState(true);
+  const [disableallbuttons, setDisableallbuttons]= useState(false);
   
   // const params = useParams();
-  const questionid = props.questionid
+  const questionid = questionids
   const conteststatus = "running"
   
   let intervalId;
-  const userid = props.userid;
-
+  const userid = userids;
   function onChange(newValue) {
     setSourceCode(newValue);
     localStorage.setItem(questionid, source_code);
@@ -29,7 +40,7 @@ function EditorIDE(props) {
 
   function setconsole(e){
     console.log("sssss")
-    props.setShowConsoleTab(!props.showConsoleTab);
+    setShowConsoleTab(showConsoleTab);
     if(e === "left"){
       setconsoleLeft(false);
     }
@@ -39,18 +50,19 @@ function EditorIDE(props) {
   }
 
   const runCode = async()=>{
-    props.setShowConsoleTab(true);
+    setDisableallbuttons(true);
+    setShowConsoleTab(true);
     setconsoleLeft(false);
 
     console.log("mycode",source_code)
-    const stdin = props.testcase;
+    const stdin = testcases;
     // const testcase2 = '12'
-    props.setRunCode(true);
+    setRunCode(true);
 
     let data = {source_code, stdin, language_id : "54" };
     console.log(data);
     try {
-        const res = await fetch("https://ultrapro1.onrender.com/submit/run", {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/submit/run`, {
         method: 'POST',
         credentials: "same-origin",
         headers: {
@@ -64,7 +76,7 @@ function EditorIDE(props) {
       }).then(async(data) => {
         console.log("run_data",data.res.token);
           try {
-            const res = await fetch(`https://ultrapro1.onrender.com/submit/run/status/`+ data.res.token, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/submit/run/status/`+ data.res.token, {
               method: 'GET',
               credentials: "same-origin",
               headers: {
@@ -76,14 +88,23 @@ function EditorIDE(props) {
               return result.json();
             }).then((data) => {
               console.log(data);
-              if(data.name === "Error"){
+              if(data.name && data.name === "Error"){
                 console.log("object")
-                props.setCompileTime("error");
-                props.setRunCode(false);
+                setcompileStatuss("Compilation Error");
+                settestcaseresult(data.stack)
+                setRunCode(false);
+              }
+              else if(data.status && data.status.description === "Compilation Error") {
+                setcompileStatuss("Compilation Error");
+                settestcaseresult(data.stack)
+                setCompileTime(data.time);
+                setRunCode(false);
               }
               else {
-                props.setCompileTime(data.time);
-                props.setRunCode(false);
+                setcompileStatuss("Run Accepted");
+                setCompileTime(data.time);
+                settestcaseresult(data.stdout);
+                setRunCode(false);
               }
               
             })
@@ -96,25 +117,30 @@ function EditorIDE(props) {
     catch (err) {
       console.log(err);
     }
+    setTimeout(function () {
+      setDisableallbuttons(false);
+    }, 10000);
+    
   }
     
   const submitCode = async()=>{
-    props.setShowConsoleTab(true);
+    setDisableallbuttons(true);
+    setShowConsoleTab(true);
     setconsoleLeft(false);
     
     console.log("mycode",source_code)
-    props.setRunCode(true);
+    setRunCode(true);
     console.log(true);
-    const problemnumber = props.questionNumber.toString();
-    const contestid = props.contestid;
-    const problem = props.questionid;
-    const conteststarttime = props.conteststarttime;
+    const problemnumber = questionNumbers.toString();
+    const contestid = contestids;
+    const problem = questionid;
+    const conteststarttime = conteststarttimes;
     const language = "cpp"
    
     let data = { contestid, problemnumber, userid, source_code, language_id : "54"};
     console.log("code data",data);
     try {
-      const res = await fetch("https://ultrapro1.onrender.com/submit", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/submit`, {
         method: 'POST',
         credentials: "same-origin",
         headers: {
@@ -130,7 +156,7 @@ function EditorIDE(props) {
           try {
             let submitdata = {contestid, userid, problemnumber};
             console.log("ssgadfsd",submitdata);
-            const res = await fetch(`https://ultrapro1.onrender.com/submit/status/`+ data.res.token, {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/submit/status/`+ data.res.token, {
               method: 'POST',
               credentials: "same-origin",
               headers: {
@@ -143,18 +169,28 @@ function EditorIDE(props) {
               return result.json();
             }).then((data) => {
               console.log(data);
-              if(data.name === "Error"){
+              if(data.name && data.name === "Error"){
                 console.log("object")
-                props.setCompileTime("error");
-                props.setRunCode(false);
+                setcompileStatuss("Compilation Error");
+                settestcaseresult(data.stack)
+                setRunCode(false);
               }
-              else if(data.status.description !== "Wrong Answer") {
-                props.setCompileTime(data.time);
-                props.setRunCode(false);
+              else if(data.status && data.status.description === "Compilation Error") {
+                setcompileStatuss("Compilation Error");
+                settestcaseresult(data.stack)
+                setCompileTime(data.time);
+                setRunCode(false);
+              }
+              else if(data.status && data.status.description === "Wrong Answer") {
+                setcompileStatuss("Wrong Answer");
+                settestcaseresult(data.status.description)
+                setCompileTime(data.time);
+                setRunCode(false);
               }
               else{
-                props.setCompileTime("Wrong Answer");
-                props.setRunCode(false);
+                setcompileStatuss("Submit Accepted");
+                setCompileTime(data.time);
+                setRunCode(false);
               }
             })
           }
@@ -168,6 +204,9 @@ function EditorIDE(props) {
     catch (err) {
       console.log(err);
     }
+    setTimeout(function () {
+      setDisableallbuttons(false);
+    }, 10000);
 
   }
 
@@ -198,15 +237,15 @@ function EditorIDE(props) {
         }}
       />
      <div className='base_btn'>
-      {
+      {/* {
         consoleLeft  == true ? 
           <button className='btn' onClick={()=> setconsole("left")}>Console <IoIosArrowUp size={17} style={{marginBottom:"3px"}}/></button> :
           <button className='btn' onClick={()=> setconsole("right")}>Console <IoIosArrowDown size={17} style={{marginBottom:"3px"}}/></button>
-      }
+      } */}
 
         <div className='float_right'>
-          <button className='run_code_btn' onClick={runCode}>Run <MdPlayArrow size={18} style={{marginBottom:"3px"}}/></button>
-          <button className='submit_code_btn' onClick={submitCode}>Submit</button>
+          <button className='run_code_btn' disabled={disableallbuttons} onClick={runCode}>Run <MdPlayArrow size={18} style={{marginBottom:"3px"}}/></button>
+          <button className='submit_code_btn' disabled={disableallbuttons} style={{ color: disableallbuttons ? '#c9bebe' : 'white' }} onClick={submitCode}>Submit</button>
         </div>
         
      </div>

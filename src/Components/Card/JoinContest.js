@@ -18,7 +18,7 @@ function Card({onClick}) {
     let data = {contestname, contestnumber, level, amount, timestart};
     // console.log(data)
     try {
-        const res = await fetch("https://ultrapro1.onrender.com/contest/createcontest", {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/contest/createcontest`, {
             method : 'POST',
             headers:{
                 'Accept':'application/json',

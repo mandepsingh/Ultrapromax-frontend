@@ -1,6 +1,7 @@
 .split {
     display: flex;
     flex-direction: row;
+    height: 100%;
     /* min-width: 500px; */
 }
 
@@ -21,15 +22,16 @@
 }
 
 .inside_container{
-    height: 92vh;
+    /* height: 92vh; */
+    height: 100%;
     overflow: hidden;
     /* background-color: bisque; */
 }
 
 .left_container{
-    height: 92vh;
-    /* overflow: scroll;
-    overflow-x: hidden; */
+    /* height: 92vh; */
+    /* overflow-x: scroll;
+    overflow-y: scroll; */
 }
 
 .left_navbar{
@@ -59,14 +61,16 @@
 .right_navbar{
     padding: 0 10px;
     height: 45px;
+    /* height: 4.5%; */
     background-color: #eee;
 }
 
 .problem_statement{
     padding: 15px;
     overflow: scroll;
+    height: 95%;
     /* overflow-x: hidden; */
-    height: 90vh;
+    /* height: 90vh; */
     padding-bottom: 40px;
     scrollbar-color: #6969dd #e0e0e0;
     scrollbar-width: thin;
@@ -88,7 +92,8 @@
 }
 
 .mid_container{
-    height: 78vh;
+    /* height: 78vh; */
+    height: 100%;
 }
 
 .select_language{
@@ -100,11 +105,12 @@
     
 }
 
-.editor_body_container{
-    height: 100%;
+.editor_body_container {
+    height: 95%;
 }
+
 .editor-ide{
-    height: 100%;
+    height: 94%;
     
   }
 
@@ -131,7 +137,7 @@
 
 
 .right_container{
-    height: 60vh;
+    /* height: 60vh; */
     max-width: 300px;
     min-width: 300px;
     /* display: none; */
@@ -148,13 +154,10 @@
 }
 
 .base_btn{
-    /* background-color: rgb(242, 242, 242); */
-    padding: 10px;
+    position: sticky;
     display: flex;
+    bottom: 56px;
     justify-content: space-between;
-    /* position: absolute;
-    bottom: 0;
-    right: 0; */
 }
 
 .run_code_btn{
@@ -169,7 +172,7 @@
 }
 
 .submit_code_btn{
-    margin-right: 15px;
+   margin-right: 15px;
    background-color: #b15e5e;
    padding: 8px 15px;
    border: none;
@@ -186,10 +189,13 @@
     margin: 15px;
     border-radius: 5px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     padding: 15px;
     font-size: 20px;
     font-weight: 400;
+    flex-direction: column;
+    overflow-x: scroll;
+    flex-wrap: nowrap;
 }
 
 .compiler_time{
@@ -201,4 +207,12 @@
     background-color: rgb(255, 255, 255);
     margin: 8px;
     padding: 5px;
+}
+
+.submission_text{
+    font-size: initial;
+}
+
+.outer_container{
+    height: 93vh;
 }

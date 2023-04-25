@@ -3,6 +3,7 @@ import { useState , useContext} from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from '../Navbar/Navbar'
 import { UserContext } from "../../App"
+import {BsFillEyeFill, BsFillEyeSlashFill} from 'react-icons/bs'
 import './Login.css';
 
 function Login() {
@@ -12,6 +13,11 @@ function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showMessage, setShowMessage] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
   
   const navigate = useNavigate();
 
@@ -20,7 +26,7 @@ function Login() {
     e.preventDefault();
     let data = { email, password };
     try {
-      const res = await fetch("https://ultrapro1.onrender.com/user/login", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_LOCAL_HOST}/user/login`, {
         method: 'POST',
         credentials: "same-origin",
         headers: {
@@ -40,10 +46,10 @@ function Login() {
         else {
           // console.log(data);
           const name = data.name;
-          const userid = data.userid;
+          const userid = data.userid, contestwin= data.contestwin, moneywin=data.moneywin;
           window.localStorage.setItem("userName", name);
           window.localStorage.setItem("userId", userid);
-          dispatch({ type: "USER", name : name, userid : userid })
+          dispatch({ type: "USER", name : name, userid : userid, contestwin: contestwin, moneywin: moneywin })
           // console.log("Succesfully login");
           navigate("/home");
         }
@@ -86,7 +92,13 @@ function Login() {
             <div className="row">
               <div className="col mb-3">
                 <label htmlFor="password" className="form-label">Password</label>
-                <input type="password" className="form-control" placeholder='Password' id="password" value={password} onChange={(e)=>setPassword(e.target.value)} autoComplete="off" required/>
+                <div className='showpassword'>
+                  <input type={passwordShown ? "text" : "password"} className="form-control" placeholder='Password' id="password" value={password} onChange={(e)=>setPassword(e.target.value)} autoComplete="off" required/>
+                  {passwordShown===true ? 
+                    <i onClick={togglePasswordVisiblity}><BsFillEyeFill size={30} style={{marginBottom:"2px", padding:"6px"}}/></i>:
+                    <i onClick={togglePasswordVisiblity}><BsFillEyeSlashFill size={30} style={{marginBottom:"2px", padding:"6px"}}/></i>
+                  }
+                </div>
               </div>
             </div>
             {showMessage && <div className='text-danger'>Invalid username or password</div>}
@@ -96,15 +108,15 @@ function Login() {
             </div>
           </form>
           <div className='d-flex justify-content-between'>
-              <Link className='links' to="/password/forgot">Forgot Password?</Link>
-              <Link className='links' to="/register">Sign Up</Link>
+              <Link className='links' to="/password/forgot" style={{color:'#1a73ec'}}> Forgot Password?</Link>
+              <Link className='links' to="/register" style={{color:'#1a73ec'}}>Sign Up</Link>
           </div>
 
-            <div className='mt-4 d-flex justify-content-center'>
-                <label className='mb-2'>Don't have an account yet? Sign up for free</label>
-            </div>
+            {/* <div className='mt-4 d-flex justify-content-center'>
+                <label className='mb-2'>Don't have an account yet? <span style={{color:'#1a73ec'}}>Sign up for free</span></label>
+            </div> */}
             <div className=' d-flex justify-content-center'>
-                <label>Didn’t receive your confirmation email? Resend it</label>
+                <label>Didn’t receive your confirmation email? Resend</label>
             </div>
         
           </div>

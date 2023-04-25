@@ -7,10 +7,11 @@ function SearchContest(props) {
 
     function searchContest(e){
         e.preventDefault();
+        // console.log(props.contests.data)
         const newlist = props.contests.data.filter((contest)=>{
             return (searchQuery && 
-                    (contest.contestname.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    contest.amount.toLowerCase().includes(searchQuery.toLowerCase())))
+                    (contest.contestname && contest.contestname.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    (contest.level && contest.level===searchQuery) || (contest.amount && contest.amount===Number(searchQuery))))
         })
         props.setFilteredContest((searchQuery) ? (newlist.length ? newlist : "no data") : props.contests.data);
     }
